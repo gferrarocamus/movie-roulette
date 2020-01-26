@@ -1,0 +1,25 @@
+@import '~antd/es/button/style/index.css';
+@import '~antd/es/layout/style/index.css';
+
+:root {
+  --yellow: #FFC829;
+  --sunshine: #F9E595;
+  --golden: #EFD35B;
+  --mustard: #EDC92F;
+  --tan: #E2BA13;
+  --light: #E5DDD7;
+  --lighter: #F1F0EE;
+  --hugo: #AFA79E;
+  --matte: #9B9187;
+  --mud: #685F56;
+  --dark: #334D5C;
+  --darker: #3A3A38;
+  --berry: #EA4949;
+  --brown: #BF1717;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
