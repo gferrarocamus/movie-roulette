@@ -2,6 +2,7 @@ import React from 'react';
 import '../styles/style.css';
 import { Layout } from 'antd';
 import Logo from './Logo';
+import Homepage from './Homepage';
 
 const { Header, Content, Footer } = Layout;
 
@@ -12,6 +13,7 @@ function App() {
       <Content className="main-container" style={{ padding: '0 50px' }}>
         <div style={{ background: '#fff', padding: 24, height: '100%' }}>
           Hello World!
+          <Homepage />
         </div>
       </Content>
       <Footer style={{ textAlign: 'center' }}>
