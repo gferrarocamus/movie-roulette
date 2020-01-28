@@ -75,7 +75,7 @@ const axiosRequest = async (method, key, params = {}) => {
 
 const getResource = (key, params = {}) => axiosRequest('get', key, params);
 
-const fetchAllPicks = (prev, totalPages) => {
+const getRemainingEditorsPicks = (prev, totalPages) => {
   let page = 1;
   let promiseChain = Promise.resolve();
   const results = [...prev];
@@ -104,30 +104,38 @@ const fetchAllPicks = (prev, totalPages) => {
 };
 
 const getEditorsPicks = () => {
-  if (localStorage.editorsPicks) {
-    console.log("local found")
-    return Promise.resolve(() => JSON.parse(localStorage.getItem('editorsPicks')));
-  }
-
   let totalPages = 1;
-  return getResource('initial').then((response) => {
-    if (response.data) {
-      totalPages = +response.data.total_pages;
-      return response.data.results;
-    }
+  return getResource('initial')
+    .then((response) => {
+      if (response.data) {
+        console.log(localStorage)
+        if (localStorage.MovieRoulette__editorsPicks) {
+          const picks = JSON.parse(localStorage.getItem('MovieRoulette__editorsPicks'));
+          if (response.data.total_results === picks.length) return picks;
+        }
+        totalPages = +response.data.total_pages;
+        console.log(totalPages);
+        return response.data.results;
+      }
 
-    return Promise.reject();
-  }).then((prev) => {
-    if (totalPages === 1) return prev;
+      if (localStorage.MovieRoulette__editorsPicks) {
+        return JSON.parse(localStorage.getItem('MovieRoulette__editorsPicks'));
+      }
 
-    return fetchAllPicks(prev, totalPages);
-  }).then((results) => {
-    console.log(results)
-    localStorage.setItem('editorsPicks', JSON.stringify(results));
-    return results;
-  });
+      return [];
+    })
+    .then((prev) => {
+      if (totalPages === 1) return prev;
+
+      return getRemainingEditorsPicks(prev, totalPages);
+    })
+    .then((results) => {
+      console.log('+++++++');
+      console.log(results);
+      localStorage.setItem('MovieRoulette__editorsPicks', JSON.stringify(results));
+      return results;
+    });
 };
-
 
 const imageURL = (path, size = 'w185') => `${routes('image_base')}/${size}/${path}`;
 
