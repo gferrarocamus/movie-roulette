@@ -12,7 +12,6 @@ function App() {
       <Header className="header" style={{ height: 'auto', lineHeight: 'inherit' }}><Logo /></Header>
       <Content className="main-container" style={{ padding: '0 50px' }}>
         <div style={{ background: '#fff', padding: 24, height: '100%' }}>
-          Hello World!
           <Homepage />
         </div>
       </Content>

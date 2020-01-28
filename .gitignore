@@ -25,4 +25,7 @@ yarn-debug.log*
 yarn-error.log*
 
 src/components/unused/*
+src/styles/.style.css
+src/.redux/*
+src/.data.js
 images/*

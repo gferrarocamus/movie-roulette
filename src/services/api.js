@@ -7,13 +7,13 @@ axios.defaults.validateStatus = null;
 
 // axios.defaults.withCredentials = true;
 
+// axios.defaults.headers.common['Authorization'] = `Bearer ${process.env.REACT_APP_TMDB_TOKEN}`;
+
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 axios.defaults.headers.common['Accept'] = 'application/json';
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
-// axios.defaults.headers.common['Authorization'] = `Bearer ${process.env.REACT_APP_TMDB_TOKEN}`;
 
 const loading = () => message.loading('Requesting data...', 0);
 
@@ -75,6 +75,62 @@ const axiosRequest = async (method, key, params = {}) => {
 
 const getResource = (key, params = {}) => axiosRequest('get', key, params);
 
+const fetchAllPicks = (prev, totalPages) => {
+  let page = 1;
+  let promiseChain = Promise.resolve();
+  const results = [...prev];
+
+  while (page < totalPages) {
+    page += 1;
+
+    if (page >= 500) {
+      promiseChain.reject();
+      break;
+    }
+
+    const makeNextPromise = (currentPage) => () => (
+      getResource('initial', { page: currentPage }).then((response) => {
+        if (response.data) {
+          results.push(...response.data.results);
+        }
+        return results;
+      })
+    );
+
+    promiseChain = promiseChain.then(makeNextPromise(page));
+  }
+
+  return promiseChain;
+};
+
+const getEditorsPicks = () => {
+  if (localStorage.editorsPicks) {
+    console.log("local found")
+    return Promise.resolve(() => JSON.parse(localStorage.getItem('editorsPicks')));
+  }
+
+  let totalPages = 1;
+  return getResource('initial').then((response) => {
+    if (response.data) {
+      totalPages = +response.data.total_pages;
+      return response.data.results;
+    }
+
+    return Promise.reject();
+  }).then((prev) => {
+    if (totalPages === 1) return prev;
+
+    return fetchAllPicks(prev, totalPages);
+  }).then((results) => {
+    console.log(results)
+    localStorage.setItem('editorsPicks', JSON.stringify(results));
+    return results;
+  });
+};
+
+
+const imageURL = (path, size = 'w185') => `${routes('image_base')}/${size}/${path}`;
+
 export default axiosRequest;
 
-export { getResource };
+export { getResource, getEditorsPicks, imageURL };

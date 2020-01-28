@@ -1,5 +1,6 @@
 @import '~antd/es/style/index.css';
 @import '~antd/es/button/style/index.css';
+@import '~antd/es/card/style/index.css';
 @import '~antd/es/layout/style/index.css';
 @import '~antd/es/message/style/index.css';
 
@@ -24,4 +25,10 @@ html,
 body,
 #root {
   height: 100%;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

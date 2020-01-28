@@ -9,7 +9,7 @@ const Logo = ({ size }) => (
       fontSize: `${size}px`,
       color: 'var(--yellow)',
       margin: '0',
-      padding: '24px',
+      padding: '12px 24px',
     }}
   >
     MovieRoulette
