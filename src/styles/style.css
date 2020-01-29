@@ -7,8 +7,8 @@
 
 :root {
   --yellow: #ffc829;
-  --sunshine: #f9e595;
   --sunglow: #ffcd3c;
+  --sunshine: #f9e595;
   --golden: #efd35b;
   --mustard: #e8b626;
   --tan: #d1a422;
@@ -47,7 +47,7 @@ header.ant-layout-header {
 }
 
 footer.ant-layout-footer {
-  background-color: var(--yellow);
+  background: linear-gradient(var(--yellow), var(--tan));
   line-height: 30px;
   color: var(--header);
 }
@@ -60,12 +60,6 @@ a:hover,
 a:focus,
 a:active {
   color: var(--accent);
-}
-
-@media (max-width: 992px) {
-}
-
-@media (max-width: 768px) {
 }
 
 @media (max-width: 576px) {
