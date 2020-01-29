@@ -1,0 +1,53 @@
+.homepage .backdrop-container {
+  display: inline-block;
+  width: 50%;
+  height: calc((calc(100vh - 77px)) / 2);
+  position: relative;
+  background-color: var(--accent);
+  transition: background-color 500ms ease-in-out;
+}
+
+.homepage .backdrop-container:first-child,
+.homepage .backdrop-container:last-child {
+  background-color: var(--light-accent);
+}
+
+.homepage .backdrop {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  display: inline-block;
+  filter: opacity(0.75) grayscale(100%) blur(0px);
+  transition: filter 500ms ease-in-out;
+}
+
+.homepage .backdrop-container:hover {
+  background-color: var(--yellow);
+}
+
+.homepage .main-action {
+  position: absolute;
+  width: 174px;
+  top: calc(50% - 20px);
+  left: calc(50% - 87px);
+  background-color: var(--yellow);
+  border-color: var(--mustard);
+  font-weight: 700;
+}
+
+.homepage .main-action:hover,
+.homepage .main-action:active,
+.homepage .main-action:focus {
+  color: inherit;
+  background-color: var(--mustard);
+  font-weight: 900;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .homepage .backdrop-container {
+    width: 100%;
+    height: calc((calc(100vh - 78px)) / 4);
+  }
+}

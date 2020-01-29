@@ -1,24 +1,33 @@
 @import '~antd/es/style/index.css';
 @import '~antd/es/button/style/index.css';
 @import '~antd/es/card/style/index.css';
+@import '~antd/es/icon/style/index.css';
 @import '~antd/es/layout/style/index.css';
 @import '~antd/es/message/style/index.css';
 
 :root {
-  --yellow: #FFC829;
-  --sunshine: #F9E595;
-  --golden: #EFD35B;
-  --mustard: #EDC92F;
-  --tan: #E2BA13;
-  --light: #E5DDD7;
-  --lighter: #F1F0EE;
-  --hugo: #AFA79E;
-  --matte: #9B9187;
-  --mud: #685F56;
-  --dark: #334D5C;
-  --darker: #3A3A38;
-  --berry: #EA4949;
-  --brown: #BF1717;
+  --yellow: #ffc829;
+  --sunshine: #f9e595;
+  --sunglow: #ffcd3c;
+  --golden: #efd35b;
+  --mustard: #e8b626;
+  --tan: #d1a422;
+  --light: #e5ddd7;
+  --lighter: #f1f0ee;
+  --white: #ffffff;
+  --hugo: #afa79e;
+  --matte: #9b9187;
+  --mud: #685f56;
+  --dark: #334d5c;
+  --darker: #3a3a38;
+  --berry: #ea4949;
+  --brown: #bf1717;
+  --accent: #334d5c;
+  --faint-accent: #9bbcce;
+  --light-accent: #6297b2;
+  --bright-accent: #25b7d3;
+  --header: #001529;
+  --almost-black: #141414;
 }
 
 html,
@@ -31,4 +40,41 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+header.ant-layout-header {
+  padding: 12px 50px;
+}
+
+footer.ant-layout-footer {
+  background-color: var(--yellow);
+  line-height: 30px;
+  color: var(--header);
+}
+
+a {
+  color: var(--light-accent);
+}
+
+a:hover,
+a:focus,
+a:active {
+  color: var(--accent);
+}
+
+@media (max-width: 992px) {
+}
+
+@media (max-width: 768px) {
+}
+
+@media (max-width: 576px) {
+  header.ant-layout-header {
+    padding: 12px 15px;
+  }
+
+  footer.ant-layout-footer {
+    padding: 24px 15px;
+    line-height: inherit;
+  }
 }

@@ -1,5 +1,6 @@
 import { message } from 'antd';
 import routes from './routes';
+import { selectNFromArray, objectToArray } from './lib';
 
 const axios = require('axios');
 
@@ -137,8 +138,17 @@ const getEditorsPicks = () => {
     });
 };
 
+const getEditorsPicksSelection = (n) => (
+  getEditorsPicks().then((response) => {
+    const arr = objectToArray(response);
+    const filtered = arr.filter((m) => m.backdrop_path && !m.adult && +(m.vote_average) >= 7);
+    const result = selectNFromArray(n, filtered);
+    return result;
+  })
+);
+
 const imageURL = (path, size = 'w185') => `${routes('image_base')}/${size}/${path}`;
 
 export default axiosRequest;
 
-export { getResource, getEditorsPicks, imageURL };
+export { getResource, getEditorsPicks, getEditorsPicksSelection, imageURL };
