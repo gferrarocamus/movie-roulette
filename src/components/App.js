@@ -10,7 +10,7 @@ function App() {
   return (
     <Layout className="layout app-container" theme="dark" style={{ minHeight: '100%' }}>
       <Header className="header" style={{ height: 'auto', lineHeight: 'inherit' }}>
-        <div style={{ margin: 'auto' }}><a href="https://gferrarocamus.github.io/movie-roulette/" title="MovieRoulette"><Logo /></a></div>
+        <div style={{ margin: 'auto' }}><a href="https://movieroulette.herokuapp.com/" title="MovieRoulette"><Logo /></a></div>
       </Header>
       <Content className="main-container" style={{ height: '100%' }}>
         <div style={{ background: '#fff', height: '100%', margin: 'auto' }}>
