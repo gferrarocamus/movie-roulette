@@ -20,14 +20,14 @@ const loading = () => message.loading('Requesting data...', 0);
 
 const stopLoading = () => message.destroy();
 
-const axiosRequest = async (method, key, params = {}) => {
+const axiosRequest = async (method, key, params = {}, showLoading = true) => {
   const url = routes(key);
   const paramsValue = {
     api_key: process.env.REACT_APP_API_KEY,
     ...params,
   };
 
-  loading();
+  if (showLoading) loading();
 
   try {
     const response = await axios[method](url, { params: paramsValue });
@@ -74,7 +74,7 @@ const axiosRequest = async (method, key, params = {}) => {
   }
 };
 
-const getResource = (key, params = {}) => axiosRequest('get', key, params);
+const getResource = (key, params = {}, showLoading = true) => axiosRequest('get', key, params, showLoading);
 
 const getRemainingEditorsPicks = (prev, totalPages) => {
   let page = 1;
@@ -90,7 +90,7 @@ const getRemainingEditorsPicks = (prev, totalPages) => {
     }
 
     const makeNextPromise = (currentPage) => () => (
-      getResource('initial', { page: currentPage }).then((response) => {
+      getResource('initial', { page: currentPage }, false).then((response) => {
         if (response.data) {
           results.push(...response.data.results);
         }
@@ -105,8 +105,12 @@ const getRemainingEditorsPicks = (prev, totalPages) => {
 };
 
 const getEditorsPicks = () => {
+  // if (localStorage.MovieRoulette__editorsPicks) {
+  //   return Promise.resolve((JSON.parse(localStorage.getItem('MovieRoulette__editorsPicks'))));
+  // }
+
   let totalPages = 1;
-  return getResource('initial')
+  return getResource('initial', {}, false)
     .then((response) => {
       if (response.data) {
         console.log(localStorage)
