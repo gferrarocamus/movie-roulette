@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import PropTypes from 'prop-types';
 import { Button, Icon } from 'antd';
+import MovieModal from './MovieModal';
 import { imageURL, getEditorsPicksSelection } from '../services/api';
 import { initialMovies } from '../data';
 import '../styles/homepage.css';
@@ -41,6 +42,7 @@ const Homepage = () => {
           </Button>
         </div>
       ))}
+      <MovieModal visible={modalVisible} />
     </div>
   );
 };

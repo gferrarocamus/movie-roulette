@@ -4,6 +4,7 @@
 @import '~antd/es/icon/style/index.css';
 @import '~antd/es/layout/style/index.css';
 @import '~antd/es/message/style/index.css';
+@import '~antd/es/modal/style/index.css';
 
 :root {
   --yellow: #ffc829;
@@ -60,6 +61,11 @@ a:hover,
 a:focus,
 a:active {
   color: var(--accent);
+}
+
+button.ant-btn.ant-btn-primary {
+  background-color: var(--yellow);
+  border-color: var(--mustard);
 }
 
 @media (max-width: 576px) {
