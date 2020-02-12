@@ -9,7 +9,7 @@ import '../styles/homepage.css';
 const Homepage = () => {
   const [movies, setMovies] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
-  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [modalProps, setModalProps] = useState({});
 
   const buttons = [
     ["Editors' Picks", 'gift'],
@@ -17,6 +17,13 @@ const Homepage = () => {
     ['Random', 'experiment'],
     ['Filter', 'control'],
   ];
+
+  const handleClick = (i) => {
+    setModalProps({
+      title: buttons[i][0],
+    });
+    setModalVisible(true);
+  };
 
   useEffect(() => {
     if (localStorage.MovieRoulette__editorsPicks) {
@@ -36,13 +43,17 @@ const Homepage = () => {
             alt={movie.title}
             src={imageURL(movie.backdrop_path, 'w780')}
           />
-          <Button shape="round" size="large" className="main-action" onClick={() => setModalVisible(true)}>
+          <Button shape="round" size="large" className="main-action" onClick={() => handleClick(i)}>
             {buttons[i][0]}
             <Icon type={buttons[i][1]} theme="filled" />
           </Button>
         </div>
       ))}
-      <MovieModal visible={modalVisible} />
+      <MovieModal
+        visible={modalVisible}
+        handleCancel={() => setModalVisible(false)}
+        {...modalProps}
+      />
     </div>
   );
 };
