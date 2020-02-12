@@ -43,17 +43,21 @@
   width: 174px;
   top: calc(50% - 20px);
   left: calc(50% - 87px);
+  color: inherit;
   background-color: var(--yellow);
   border-color: var(--mustard);
   font-weight: 700;
 }
 
+.homepage .main-action:focus,
+.homepage .main-action:active {
+  color: var(--light-accent);
+}
+
 .backdrop-container:hover .main-action,
 .backdrop-container:active .main-action,
 .backdrop-container:focus .main-action,
-.homepage .main-action:hover,
-.homepage .main-action:active,
-.homepage .main-action:focus {
+.homepage .main-action:hover {
   color: var(--header);
   background-color: transparent;
   border-color: transparent;
@@ -72,9 +76,7 @@
   .backdrop-container:hover .main-action,
   .backdrop-container:active .main-action,
   .backdrop-container:focus .main-action,
-  .homepage .main-action:hover,
-  .homepage .main-action:active,
-  .homepage .main-action:focus {
+  .homepage .main-action:hover {
     font-size: 54px;
   }
 }
@@ -82,7 +84,7 @@
 @media (max-width: 992px) {
   .homepage .backdrop-container {
     width: 100%;
-    height: calc((calc(100vh - 78px)) / 4);
+    height: calc((calc(100vh - 77px)) / 4);
   }
 }
 
@@ -90,9 +92,7 @@
   .backdrop-container:hover .main-action,
   .backdrop-container:active .main-action,
   .backdrop-container:focus .main-action,
-  .homepage .main-action:hover,
-  .homepage .main-action:active,
-  .homepage .main-action:focus {
+  .homepage .main-action:hover {
     font-size: 45px;
   }
 }
@@ -101,9 +101,7 @@
   .backdrop-container:hover .main-action,
   .backdrop-container:active .main-action,
   .backdrop-container:focus .main-action,
-  .homepage .main-action:hover,
-  .homepage .main-action:active,
-  .homepage .main-action:focus {
+  .homepage .main-action:hover {
     font-size: 32px;
   }
 }

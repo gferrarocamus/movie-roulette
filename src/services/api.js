@@ -1,6 +1,6 @@
 import { message } from 'antd';
-import routes from './routes';
-import { selectNFromArray, objectToArray } from './lib';
+import routes, { params } from './routes';
+import { selectNFromArray, objectToArray, todayISO } from './lib';
 
 const axios = require('axios');
 
@@ -151,8 +151,19 @@ const getEditorsPicksSelection = (n) => (
   })
 );
 
+const getMovie = (key) => {
+  return getResource(key, params(key, todayISO()), false)
+    .then((response) => {
+      if (response.data) {
+        return response.data;
+      }
+
+      return {};
+    });
+};
+
 const imageURL = (path, size = 'w185') => `${routes('image_base')}/${size}/${path}`;
 
 export default axiosRequest;
 
-export { getResource, getEditorsPicks, getEditorsPicksSelection, imageURL };
+export { getResource, getEditorsPicks, getEditorsPicksSelection, getMovie, imageURL };

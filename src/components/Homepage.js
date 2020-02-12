@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import PropTypes from 'prop-types';
 import { Button, Icon } from 'antd';
 import MovieModal from './MovieModal';
-import { imageURL, getEditorsPicksSelection } from '../services/api';
+import { imageURL, getMovie, getEditorsPicksSelection } from '../services/api';
 import { initialMovies } from '../data';
 import '../styles/homepage.css';
 
@@ -18,9 +18,18 @@ const Homepage = () => {
     ['Filter', 'control'],
   ];
 
+  const buttonKeys = [
+    'initial',
+    'popular',
+    'random',
+    'filter',
+  ];
+
   const handleClick = (i) => {
     setModalProps({
       title: buttons[i][0],
+      fetch: getMovie,
+      buttonKey: buttonKeys[i],
     });
     setModalVisible(true);
   };
@@ -32,7 +41,7 @@ const Homepage = () => {
       setMovies(initialMovies);
       getEditorsPicksSelection(buttons.length);
     }
-  }, []);
+  }, [buttons.length]);
 
   return (
     <div className="homepage">

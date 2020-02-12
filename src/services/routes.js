@@ -3,8 +3,29 @@ const routes = (key) => {
     image_base: 'https://image.tmdb.org/t/p',
     initial: 'https://api.themoviedb.org/4/list/131306',
     popular: 'https://api.themoviedb.org/4/discover/movie',
+    random: 'https://api.themoviedb.org/4/discover/movie',
+    filter: 'https://api.themoviedb.org/4/discover/movie',
   };
   return URLs[key];
+};
+
+export const params = (key, date = '') => {
+  const routeParams = {
+    initial: {},
+    popular: {
+      sort_by: 'popularity.desc',
+    },
+    random: {
+      include_adult: false,
+      include_video: false,
+      'primary_release_date.lte': date,
+      'vote_count.gte': 100,
+      'vote_average.gte': 2,
+      'with_runtime.gte': 40,
+      sort_by: 'popularity.desc',
+    },
+  };
+  return routeParams[key];
 };
 
 export default routes;
