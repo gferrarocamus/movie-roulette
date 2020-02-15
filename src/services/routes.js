@@ -9,8 +9,8 @@ const routes = (key) => {
   return URLs[key];
 };
 
-export const params = (key, date = '') => {
-  const routeParams = {
+export const routeParams = (key, date = '') => {
+  const params = {
     initial: {},
     popular: {
       sort_by: 'popularity.desc',
@@ -25,7 +25,7 @@ export const params = (key, date = '') => {
       sort_by: 'popularity.desc',
     },
   };
-  return routeParams[key];
+  return params[key];
 };
 
 export default routes;
