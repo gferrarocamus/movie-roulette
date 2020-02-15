@@ -1,22 +1,23 @@
 import { getResource } from './axios';
 import routes, { routeParams } from './routes';
-import { selectNFromArray, objectToArray, todayISO } from './lib';
+import { selectNFromArray, objectToArray, todayISO, getFromStorage, setToStorage } from './lib';
 
-const getRemainingEditorsPicks = (prev, totalPages) => {
-  let page = 1;
+const fetchMore = (key, previousPage, lastPage, prev = []) => {
+  let page = previousPage;
   let promiseChain = Promise.resolve();
   const results = [...prev];
+  const max = key === 'initial' ? 500 : 1000; // as per TMDB's API definition
 
-  while (page < totalPages) {
+  while (page < lastPage) {
     page += 1;
 
-    if (page >= 500) {
+    if (page >= max) {
       promiseChain.reject();
       break;
     }
 
     const makeNextPromise = (currentPage) => () => (
-      getResource('initial', { page: currentPage }, false).then((response) => {
+      getResource(key, { page: currentPage, ...routeParams(key, todayISO()) }, false).then((response) => {
         if (response.data) {
           results.push(...response.data.results);
         }
@@ -30,18 +31,20 @@ const getRemainingEditorsPicks = (prev, totalPages) => {
   return promiseChain;
 };
 
+const getRemainingEditorsPicks = (prev, totalPages) => fetchMore('initial', 1, totalPages, prev);
+
 const getEditorsPicks = () => {
-  // if (localStorage.MovieRoulette__editorsPicks) {
-  //   return Promise.resolve((JSON.parse(localStorage.getItem('MovieRoulette__editorsPicks'))));
-  // }
+  if (localStorage.MovieRoulette__initial) {
+    return Promise.resolve(getFromStorage('initial'));
+  }
 
   let totalPages = 1;
   return getResource('initial', {}, false)
     .then((response) => {
       if (response.data) {
         console.log(localStorage);
-        if (localStorage.MovieRoulette__editorsPicks) {
-          const picks = JSON.parse(localStorage.getItem('MovieRoulette__editorsPicks'));
+        if (localStorage.MovieRoulette__initial) {
+          const picks = getFromStorage('initial');
           if (response.data.total_results === picks.length) return picks;
         }
         totalPages = +response.data.total_pages;
@@ -49,8 +52,8 @@ const getEditorsPicks = () => {
         return response.data.results;
       }
 
-      if (localStorage.MovieRoulette__editorsPicks) {
-        return JSON.parse(localStorage.getItem('MovieRoulette__editorsPicks'));
+      if (localStorage.MovieRoulette__initial) {
+        return getFromStorage('initial');
       }
 
       return [];
@@ -63,7 +66,7 @@ const getEditorsPicks = () => {
     .then((results) => {
       console.log('+++++++');
       console.log(results);
-      localStorage.setItem('MovieRoulette__editorsPicks', JSON.stringify(results));
+      setToStorage('initial', results);
       return results;
     });
 };

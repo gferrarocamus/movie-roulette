@@ -35,4 +35,13 @@ export const todayISO = () => {
   return [year, month, day].join('-');
 };
 
+export const localStorageKey = (key) => `MovieRoulette__${key}`;
+
+export const getFromStorage = (key) => {
+  const result = localStorage.getItem(localStorageKey(key));
+  return JSON.parse(result);
+};
+
+export const setToStorage = (key, result) => localStorage.setItem(localStorageKey(key), JSON.stringify(result));
+
 export default selectNFromArray;

@@ -35,8 +35,8 @@ const Homepage = () => {
   };
 
   useEffect(() => {
-    if (localStorage.MovieRoulette__editorsPicks) {
-      getEditorsPicksSelection(buttons.length).then((response) => setMovies(response));
+    if (localStorage.MovieRoulette__initial) {
+      getEditorsPicksSelection(buttons.length).then((response) => setMovies(response.flat()));
     } else {
       setMovies(initialMovies);
       getEditorsPicksSelection(buttons.length);
