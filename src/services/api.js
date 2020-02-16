@@ -39,7 +39,7 @@ const getInitial = () => {
   }
 
   let totalPages = 1;
-  return getResource('initial', {}, false)
+  return getResource('initial', {})
     .then((response) => {
       if (response.data) {
         console.log(localStorage);
@@ -81,43 +81,34 @@ const getInitialSelection = (n) => (
 );
 
 const getByDiscover = (key) => {
-  const params = routeParams(key, todayISO());
-  const k = localStorageKey(key);
-  let totalPages = 1;
+  const storageKey = localStorageKey(key);
 
-  return getResource(key, params, false)
+  if (localStorage[storageKey]) {
+    return Promise.resolve(getFromStorage(key));
+  }
+
+  const params = routeParams(key, todayISO());
+
+  return getResource(key, params)
     .then((response) => {
       if (response.data) {
-        if (localStorage[k]) {
-          const picks = getFromStorage(key);
-          if (response.data.total_results === picks.length) return picks;
-        }
-        totalPages = +response.data.total_pages;
-        console.log(totalPages);
         return response.data.results;
-      }
-
-      if (localStorage[k]) {
-        return getFromStorage(key);
       }
 
       return [];
     })
-    .then((prev) => {
-      if (totalPages === 1) return prev;
-
-      return getRemainingInitial(prev, totalPages);
-    })
+    .then((prev) => fetchMore(key, 1, 10, prev))
     .then((results) => {
       console.log('+++++++');
       console.log(results);
+      setToStorage(`${key}__last_page`, 10);
       setToStorage(key, results);
       return results;
     });
 };
 
 const getMovie = (key) => {
-  return getResource(key, routeParams(key, todayISO()), false)
+  return getResource(key, routeParams(key, todayISO()))
     .then((response) => {
       // record page number
       // random pick

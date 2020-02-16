@@ -21,8 +21,8 @@ const stopLoading = () => message.destroy();
 
 const error = () => message.error("Appy-polly-loggies! There's been an error.");
 
-const axiosRequest = async (method, key, params = {}, showLoading = true) => {
-  let showError = true;
+const axiosRequest = async (method, key, params = {}, showLoading = false) => {
+  let showError = false;
   const url = routes(key);
   const authParams = {
     api_key: process.env.REACT_APP_API_KEY,
@@ -40,7 +40,6 @@ const axiosRequest = async (method, key, params = {}, showLoading = true) => {
         error: null,
       };
     }
-
     showError = true;
     return {
       data: null,
@@ -83,7 +82,7 @@ const axiosRequest = async (method, key, params = {}, showLoading = true) => {
   }
 };
 
-const getResource = (key, params = {}, showLoading = true) => axiosRequest('get', key, params, showLoading);
+const getResource = (key, params = {}, showLoading = false) => axiosRequest('get', key, params, showLoading);
 
 export default getResource;
 

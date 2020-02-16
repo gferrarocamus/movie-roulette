@@ -40,11 +40,11 @@ const Homepage = () => {
   }, [buttons.length]);
 
   useEffect(() => {
-    // getByDiscover('popular').then((response) => setPopular(response));
+    getByDiscover('popular').then((response) => setPopular(response));
   }, []);
 
   useEffect(() => {
-    // getByDiscover('random').then((response) => setRandom(response));
+    getByDiscover('random').then((response) => setRandom(response));
   }, []);
 
   return (
