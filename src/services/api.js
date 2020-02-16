@@ -1,6 +1,6 @@
 import { getResource } from './axios';
 import routes, { routeParams } from './routes';
-import { selectNFromArray, objectToArray, todayISO, getFromStorage, setToStorage } from './lib';
+import { selectNFromArray, objectToArray, todayISO, localStorageKey, getFromStorage, setToStorage } from './lib';
 
 const fetchMore = (key, previousPage, lastPage, prev = []) => {
   let page = previousPage;
@@ -31,9 +31,9 @@ const fetchMore = (key, previousPage, lastPage, prev = []) => {
   return promiseChain;
 };
 
-const getRemainingEditorsPicks = (prev, totalPages) => fetchMore('initial', 1, totalPages, prev);
+const getRemainingInitial = (prev, totalPages) => fetchMore('initial', 1, totalPages, prev);
 
-const getEditorsPicks = () => {
+const getInitial = () => {
   if (localStorage.MovieRoulette__initial) {
     return Promise.resolve(getFromStorage('initial'));
   }
@@ -61,7 +61,7 @@ const getEditorsPicks = () => {
     .then((prev) => {
       if (totalPages === 1) return prev;
 
-      return getRemainingEditorsPicks(prev, totalPages);
+      return getRemainingInitial(prev, totalPages);
     })
     .then((results) => {
       console.log('+++++++');
@@ -71,8 +71,8 @@ const getEditorsPicks = () => {
     });
 };
 
-const getEditorsPicksSelection = (n) => (
-  getEditorsPicks().then((response) => {
+const getInitialSelection = (n) => (
+  getInitial().then((response) => {
     const arr = objectToArray(response);
     const filtered = arr.filter((m) => m.backdrop_path && !m.adult && +(m.vote_average) >= 7);
     const result = selectNFromArray(n, filtered);
@@ -80,10 +80,45 @@ const getEditorsPicksSelection = (n) => (
   })
 );
 
+const getByDiscover = (key) => {
+  const params = routeParams(key, todayISO());
+  const k = localStorageKey(key);
+  let totalPages = 1;
+
+  return getResource(key, params, false)
+    .then((response) => {
+      if (response.data) {
+        if (localStorage[k]) {
+          const picks = getFromStorage(key);
+          if (response.data.total_results === picks.length) return picks;
+        }
+        totalPages = +response.data.total_pages;
+        console.log(totalPages);
+        return response.data.results;
+      }
+
+      if (localStorage[k]) {
+        return getFromStorage(key);
+      }
+
+      return [];
+    })
+    .then((prev) => {
+      if (totalPages === 1) return prev;
+
+      return getRemainingInitial(prev, totalPages);
+    })
+    .then((results) => {
+      console.log('+++++++');
+      console.log(results);
+      setToStorage(key, results);
+      return results;
+    });
+};
+
 const getMovie = (key) => {
   return getResource(key, routeParams(key, todayISO()), false)
     .then((response) => {
-      // catch errors
       // record page number
       // random pick
       // record selection
@@ -97,6 +132,6 @@ const getMovie = (key) => {
 
 const imageURL = (path, size = 'w185') => `${routes('image_base')}/${size}/${path}`;
 
-export default getEditorsPicks;
+export default getInitial;
 
-export { getEditorsPicks, getEditorsPicksSelection, getMovie, imageURL };
+export { getInitial, getInitialSelection, getByDiscover, getMovie, imageURL };

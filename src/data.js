@@ -1,11 +1,8 @@
-export const categories = [
-  'Action',
-  'Biography',
-  'History',
-  'Horror',
-  'Kids',
-  'Learning',
-  'Sci-Fi',
+export const keys = [
+  'initial',
+  'popular',
+  'random',
+  'filter',
 ];
 
 export const initialMovies = [
