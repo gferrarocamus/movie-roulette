@@ -14,6 +14,12 @@ export const selectNFromArray = (n, arr) => {
   return result;
 };
 
+export const selectOneFromArray = (arr) => {
+  if (arr.length < 1) return null;
+
+  return arr[Math.floor(Math.random() * arr.length)];
+};
+
 export const objectToArray = (obj) => {
   const arr = [];
   const json = obj;
