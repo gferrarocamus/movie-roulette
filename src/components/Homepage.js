@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 // import PropTypes from 'prop-types';
 import { Button, Icon } from 'antd';
 import MovieModal from './MovieModal';
-import { imageURL, getMovie, getByDiscover, getInitialSelection } from '../services/api';
+import { imageURL, getMovie, getByDiscover, getInitialSelection, getInitial } from '../services/api';
 import { initialMovies, keys } from '../data';
 import '../styles/homepage.css';
 
 const Homepage = () => {
   const [movies, setMovies] = useState([]);
+  const [initial, setInitial] = useState([]);
   const [popular, setPopular] = useState([]);
   const [random, setRandom] = useState([]);
   const [filter, setFilter] = useState([]);
@@ -21,21 +22,32 @@ const Homepage = () => {
     ['Filter', 'control'],
   ];
 
+  const actionProps = [
+    [initial],
+    [popular],
+    [random],
+    [],
+  ];
+
   const handleClick = (i) => {
     setModalProps({
       title: buttons[i][0],
-      fetch: getMovie,
       buttonKey: keys[i],
+      movies: actionProps[i],
+      getMovie,
     });
     setModalVisible(true);
   };
 
   useEffect(() => {
     if (localStorage.MovieRoulette__initial) {
-      getInitialSelection(buttons.length).then((response) => setMovies(response));
+      getInitial().then((response) => {
+        setInitial(response);
+        setMovies(getInitialSelection(response, buttons.length));
+      });
     } else {
       setMovies(initialMovies);
-      getInitialSelection(buttons.length);
+      getInitial().then((response) => setInitial(response));
     }
   }, [buttons.length]);
 
