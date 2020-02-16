@@ -1,6 +1,14 @@
 import { getResource } from './axios';
 import routes, { routeParams } from './routes';
-import { selectNFromArray, objectToArray, todayISO, localStorageKey, getFromStorage, setToStorage } from './lib';
+import {
+  selectNFromArray,
+  selectOneFromArray,
+  objectToArray,
+  todayISO,
+  localStorageKey,
+  getFromStorage,
+  setToStorage,
+} from './lib';
 
 const fetchMore = (key, previousPage, lastPage, prev = []) => {
   let page = previousPage;
@@ -71,15 +79,6 @@ const getInitial = () => {
     });
 };
 
-const getInitialSelection = (n) => (
-  getInitial().then((response) => {
-    const arr = objectToArray(response);
-    const filtered = arr.filter((m) => m.backdrop_path && !m.adult && +(m.vote_average) >= 7);
-    const result = selectNFromArray(n, filtered);
-    return result;
-  })
-);
-
 const getByDiscover = (key) => {
   const storageKey = localStorageKey(key);
 
@@ -107,22 +106,58 @@ const getByDiscover = (key) => {
     });
 };
 
-const getMovie = (key) => {
-  return getResource(key, routeParams(key, todayISO()))
-    .then((response) => {
-      // record page number
-      // random pick
-      // record selection
-      if (response.data) {
-        return response.data;
-      }
+const getInitialSelection = (response, n) => {
+  const arr = objectToArray(response);
+  const filtered = arr.filter((m) => m.backdrop_path && !m.adult && +(m.vote_average) >= 7);
+  const result = selectNFromArray(n, filtered);
+  return result;
+};
 
-      return {};
-    });
+const getMovie = (key, prev) => {
+  const bingos = getFromStorage('bingos');
+  const arr = objectToArray(prev)[0];
+  const filtered = arr.filter((m) => !bingos.includes(m.id));
+  let promiseChain = Promise.resolve(filtered);
+  let movie = {};
+
+  if (filtered.length < 1) {
+    const firstPage = +getFromStorage(`${key}__last_page`);
+    const lastPage = firstPage + 10;
+
+    promiseChain = promiseChain.then(() => (
+      fetchMore(key, firstPage, lastPage)
+        .then((response) => {
+          if (response.data) {
+            setToStorage(`${key}__last_page`, lastPage);
+            setToStorage(key, response.data);
+            return objectToArray(response.data);
+          }
+
+          return [];
+        })
+    ));
+  }
+
+  promiseChain = promiseChain.then((result) => {
+    movie = selectOneFromArray(result);
+    if (movie) {
+      const newBingos = [movie.id, ...bingos];
+      setToStorage('bingos', newBingos);
+    }
+    return movie;
+  });
+
+  return promiseChain;
 };
 
 const imageURL = (path, size = 'w185') => `${routes('image_base')}/${size}/${path}`;
 
 export default getInitial;
 
-export { getInitial, getInitialSelection, getByDiscover, getMovie, imageURL };
+export {
+  getInitial,
+  getInitialSelection,
+  getByDiscover,
+  getMovie,
+  imageURL,
+};
