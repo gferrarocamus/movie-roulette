@@ -1,25 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { Modal } from 'antd';
 import PropTypes from 'prop-types';
-// import { getMovie } from '../services/api';
 import '../styles/movie_modal.css';
 
-const MovieModal = ({ title, visible, movies, getMovie, buttonKey, handleCancel }) => {
+const MovieModal = ({ title, visible, movies, getMovie, buttonKey, hideModal }) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [movie, setMovie] = useState({});
+  const [rejected, setRejected] = useState(true);
 
   const handleOk = () => {
+    setRejected(true);
     setConfirmLoading(true);
-    getMovie(buttonKey, movies).then((response) => setMovie(response));
+    getMovie(buttonKey, movies).then((response) => {
+      setMovie(response);
+      setConfirmLoading(false);
+    });
     console.log('OK');
-    setConfirmLoading(false);
+  };
+
+  const handleCancel = () => {
+    console.log("cancel")
+    setRejected(false);
+    hideModal();
   };
 
   useEffect(() => {
-    if (buttonKey !== 'filter') {
+    console.log(buttonKey, movies)
+    if (rejected && movies.length > 0) {
       getMovie(buttonKey, movies).then((response) => setMovie(response));
     }
-  }, [buttonKey, getMovie, movies]);
+  }, [buttonKey, getMovie, movies, rejected]);
 
   return (
     <Modal
@@ -41,11 +51,9 @@ const MovieModal = ({ title, visible, movies, getMovie, buttonKey, handleCancel 
 MovieModal.propTypes = {
   title: PropTypes.string,
   visible: PropTypes.bool.isRequired,
-  handleCancel: PropTypes.func.isRequired,
+  hideModal: PropTypes.func.isRequired,
   movies: PropTypes.arrayOf(
-    PropTypes.arrayOf(
-      PropTypes.shape({}),
-    ),
+    PropTypes.shape({}),
   ),
   getMovie: PropTypes.func,
   buttonKey: PropTypes.string,
@@ -55,7 +63,7 @@ MovieModal.defaultProps = {
   getMovie: () => Promise.resolve(),
   title: 'You Should Watch This!',
   buttonKey: 'initial',
-  movies: [[{}]],
+  movies: [{}],
 };
 
 export default MovieModal;
