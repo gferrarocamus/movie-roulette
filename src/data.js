@@ -5,6 +5,13 @@ export const keys = [
   'filter',
 ];
 
+export const buttons = [
+  ["Editors' Picks", 'gift'],
+  ['Popular', 'fire'],
+  ['Random', 'experiment'],
+  ['Filter', 'control'],
+];
+
 export const initialMovies = [
   {
     poster_path: '/wOBKAoUJZb5qTsWv5XXvVV2vUzz.jpg',
