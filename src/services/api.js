@@ -115,7 +115,7 @@ const getInitialSelection = (response, n) => {
 
 const getMovie = (key, prev) => {
   const bingos = getFromStorage('bingos');
-  const arr = objectToArray(prev)[0];
+  const arr = objectToArray(prev);
   const filtered = arr.filter((m) => !bingos.includes(m.id));
   let promiseChain = Promise.resolve(filtered);
   let movie = {};
