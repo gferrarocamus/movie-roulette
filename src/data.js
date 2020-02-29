@@ -1,15 +1,16 @@
 export const keys = [
   'initial',
   'popular',
+  'trending',
   'random',
   'filter',
 ];
 
 export const buttons = [
   ["Editors' Picks", 'gift'],
-  ['Popular', 'fire'],
+  ['Popular', 'star'],
+  ['Trending', 'fire'],
   ['Random', 'experiment'],
-  ['Filter', 'control'],
 ];
 
 export const initialMovies = [

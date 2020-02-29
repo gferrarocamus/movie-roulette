@@ -8,14 +8,15 @@ import './Homepage.css';
 const Homepage = () => {
   const [movies, setMovies] = useState([]);
   const [initial, setInitial] = useState([]);
+  const [trending, setTrending] = useState([]);
   const [popular, setPopular] = useState([]);
   const [random, setRandom] = useState([]);
 
   const fetchedMovies = [
     initial,
+    trending,
     popular,
     random,
-    [],
   ];
 
   useEffect(() => {
@@ -28,6 +29,10 @@ const Homepage = () => {
       setMovies(initialMovies);
       getInitial().then((response) => setInitial(response));
     }
+  }, []);
+
+  useEffect(() => {
+    getByDiscover('trending').then((response) => setTrending(response));
   }, []);
 
   useEffect(() => {

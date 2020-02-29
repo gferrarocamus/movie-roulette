@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Icon } from 'antd';
-import MovieModalDispatcher from '../MovieModalDispatcher';
+import MovieModal from '../MovieModal';
 import { imageURL, getMovie } from '../../services/api';
 
 const MovieTile = ({ movie, movies, buttonKey, buttonData }) => {
@@ -26,7 +26,7 @@ const MovieTile = ({ movie, movies, buttonKey, buttonData }) => {
           <Icon type={buttonData[1]} theme="filled" />
         </Button>
       </div>
-      <MovieModalDispatcher
+      <MovieModal
         key={buttonKey}
         buttonKey={buttonKey}
         title={buttonData[0]}

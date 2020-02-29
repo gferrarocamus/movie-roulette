@@ -4,6 +4,7 @@ const routes = (key) => {
     initial: 'https://api.themoviedb.org/4/list/131306',
     popular: 'https://api.themoviedb.org/4/discover/movie',
     random: 'https://api.themoviedb.org/4/discover/movie',
+    trending: 'https://api.themoviedb.org/4/trending/movie/day',
     filter: 'https://api.themoviedb.org/4/discover/movie',
   };
   return URLs[key];
@@ -24,6 +25,7 @@ export const routeParams = (key, date = '') => {
       'with_runtime.gte': 40,
       sort_by: 'popularity.desc',
     },
+    trending: {},
   };
   return params[key];
 };
