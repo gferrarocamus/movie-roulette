@@ -10,11 +10,12 @@ import {
   setToStorage,
 } from './lib';
 
-const fetchMore = (key, previousPage, lastPage, prev = []) => {
+const fetchMore = (key, previousPage, lastPage, prev = [], query = null) => {
   let page = previousPage;
   let promiseChain = Promise.resolve();
   const results = [...prev];
   const max = key === 'initial' ? 500 : 1000; // as per TMDB's API definition
+  const params = query || routeParams(key, todayISO());
 
   while (page < lastPage) {
     page += 1;
@@ -25,7 +26,7 @@ const fetchMore = (key, previousPage, lastPage, prev = []) => {
     }
 
     const makeNextPromise = (currentPage) => () => (
-      getResource(key, { page: currentPage, ...routeParams(key, todayISO()) }, false).then((response) => {
+      getResource(key, { page: currentPage, ...params }, false).then((response) => {
         if (response.data) {
           results.push(...response.data.results);
         }
@@ -79,14 +80,14 @@ const getInitial = () => {
     });
 };
 
-const getByDiscover = (key) => {
+const getByDiscover = (key, query = null) => {
   const storageKey = localStorageKey(key);
 
   if (localStorage[storageKey]) {
     return Promise.resolve(getFromStorage(key));
   }
 
-  const params = routeParams(key, todayISO());
+  const params = query || routeParams(key, todayISO());
 
   return getResource(key, params)
     .then((response) => {
@@ -155,9 +156,9 @@ const imageURL = (path, size = 'w185') => `${routes('image_base')}/${size}/${pat
 export default getInitial;
 
 export {
+  getByDiscover,
   getInitial,
   getInitialSelection,
-  getByDiscover,
   getMovie,
   imageURL,
 };
