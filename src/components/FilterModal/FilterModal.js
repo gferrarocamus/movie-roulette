@@ -1,9 +1,8 @@
 import React, { useState, createRef } from 'react';
 import PropTypes from 'prop-types';
-import MovieModal from './MovieModal';
-import FilterForm from './FilterForm';
-import { getByDiscover } from '../services/api';
-// import '../styles/filter_modal.css';
+import MovieModal from '../MovieModal/MovieModal';
+import FilterForm from '../FilterForm/FilterForm';
+import { getByDiscover } from '../../services/api';
 
 const FilterModal = ({
   title,

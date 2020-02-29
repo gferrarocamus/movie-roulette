@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 // import PropTypes from 'prop-types';
-import MovieTile from './MovieTile';
-import { getByDiscover, getInitialSelection, getInitial } from '../services/api';
-import { initialMovies, keys, buttons } from '../data';
-import '../styles/homepage.css';
+import MovieTile from '../MovieTile/MovieTile';
+import { getByDiscover, getInitialSelection, getInitial } from '../../services/api';
+import { initialMovies, keys, buttons } from '../../data';
+import './Homepage.css';
 
 const Homepage = () => {
   const [movies, setMovies] = useState([]);

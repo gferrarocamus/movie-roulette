@@ -1,9 +1,8 @@
 import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Icon } from 'antd';
-import MovieModalDispatcher from './MovieModalDispatcher';
-import { imageURL, getMovie } from '../services/api';
-// import '../styles/movie_tile.css';
+import MovieModalDispatcher from '../MovieModalDispatcher';
+import { imageURL, getMovie } from '../../services/api';
 
 const MovieTile = ({ movie, movies, buttonKey, buttonData }) => {
   const [modalVisible, setModalVisible] = useState(false);

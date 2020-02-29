@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Modal } from 'antd';
 import PropTypes from 'prop-types';
-import '../styles/movie_modal.css';
 
 const MovieModal = ({ title, visible, movies, getMovie, buttonKey, hideModal }) => {
   const [confirmLoading, setConfirmLoading] = useState(false);

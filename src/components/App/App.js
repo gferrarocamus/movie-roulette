@@ -1,8 +1,8 @@
 import React from 'react';
-import '../styles/style.css';
 import { Layout } from 'antd';
-import Logo from './Logo';
-import Homepage from './Homepage';
+import Logo from '../Logo/Logo';
+import Homepage from '../Homepage/Homepage';
+import './App.css';
 
 const { Header, Content, Footer } = Layout;
 
