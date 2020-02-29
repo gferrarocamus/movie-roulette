@@ -41,6 +41,16 @@ export const todayISO = () => {
   return [year, month, day].join('-');
 };
 
+export const yearFromDate = (date) => {
+  const d = new Date(date);
+  return d.getFullYear();
+};
+
+export const genreNameFromId = (genres, id) => {
+  const genre = genres.filter((obj) => obj.id === id)[0];
+  return genre.name || '';
+};
+
 export const localStorageKey = (key) => `MovieRoulette__${key}`;
 
 export const getFromStorage = (key) => {
