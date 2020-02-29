@@ -122,19 +122,15 @@ const getMovie = (key, prev) => {
   let movie = {};
 
   if (filtered.length < 1) {
-    const firstPage = +getFromStorage(`${key}__last_page`);
+    const firstPage = +getFromStorage(`${key}__last_page`) + 1;
     const lastPage = firstPage + 10;
 
     promiseChain = promiseChain.then(() => (
       fetchMore(key, firstPage, lastPage)
         .then((response) => {
-          if (response.data) {
-            setToStorage(`${key}__last_page`, lastPage);
-            setToStorage(key, response.data);
-            return objectToArray(response.data);
-          }
-
-          return [];
+          setToStorage(`${key}__last_page`, lastPage);
+          setToStorage(key, response);
+          return response;
         })
     ));
   }
