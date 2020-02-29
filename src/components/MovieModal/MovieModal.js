@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Modal } from 'antd';
+import { Col, Modal, Row } from 'antd';
 import PropTypes from 'prop-types';
+import GenreTag from '../GenreTag';
+import { imageURL } from '../../services/api';
+import { yearFromDate } from '../../services/lib';
 
 const MovieModal = ({ title, visible, movies, getMovie, buttonKey, hideModal }) => {
-  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [movie, setMovie] = useState({});
   const [rejected, setRejected] = useState(true);
 
   const handleOk = () => {
     setRejected(true);
-    setConfirmLoading(true);
+    setLoading(true);
     getMovie(buttonKey, movies).then((response) => {
       setMovie(response);
-      setConfirmLoading(false);
+      setLoading(false);
     });
     console.log('OK');
   };
@@ -36,13 +39,35 @@ const MovieModal = ({ title, visible, movies, getMovie, buttonKey, hideModal }) 
       visible={visible}
       onOk={handleOk}
       onCancel={handleCancel}
-      confirmLoading={confirmLoading}
+      loading={loading}
       okButtonProps={{ shape: 'round', type: 'default' }}
       cancelButtonProps={{ shape: 'round' }}
       okText="No, show me more"
       cancelText="Sure, I'll watch that"
     >
-      <p>{JSON.stringify(movie)}</p>
+      {console.log(JSON.stringify(movie))}
+      {!loading && (
+        <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+          <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+            <img
+              alt={movie.title}
+              src={imageURL(movie.poster_path)}
+            />
+          </Col>
+          <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+            <h1>
+              {movie.title}
+              <small>{` ${yearFromDate(movie.release_date)}`}</small>
+            </h1>
+            {(movie.title !== movie.original_title) && <small><em>{movie.original_title}</em></small>}
+            <div className="genres">
+              {(movie.genre_ids !== undefined) && movie.genre_ids.map((id) => <GenreTag key={id} id={id} />)}
+            </div>
+            <p>{movie.overview}</p>
+            <a target="_blank" rel="noopener noreferrer" title="Read More" href={`https://www.themoviedb.org/movie/${movie.id}`}>Read More</a>
+          </Col>
+        </Row>
+      )}
     </Modal>
   );
 };
