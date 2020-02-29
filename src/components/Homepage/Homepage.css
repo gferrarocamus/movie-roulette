@@ -52,6 +52,7 @@
 .homepage .main-action:focus,
 .homepage .main-action:active {
   color: var(--light-accent);
+  background-color: var(--yellow);
 }
 
 .backdrop-container:hover .main-action,
