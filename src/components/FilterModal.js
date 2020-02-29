@@ -1,15 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import { Modal } from 'antd';
+import React, { useState, createRef } from 'react';
 import PropTypes from 'prop-types';
 import MovieModal from './MovieModal';
+import FilterForm from './FilterForm';
+import { getByDiscover } from '../services/api';
 // import '../styles/filter_modal.css';
 
-const FilterModal = ({ title, visible, getMovie, buttonKey, hideModal }) => {
+const FilterModal = ({
+  title,
+  visible,
+  getMovie,
+  buttonKey,
+  hideModal,
+}) => {
   const [movies, setMovies] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const formRef = createRef();
 
-  const handleOk = () => {
-    console.log('OK');
+  const formProps = {
+    component: FilterForm,
+    callback: getMovie,
+  };
+
+  const handleSubmit = () => {
+    if (formRef.current.form) {
+      const { form } = formRef.current;
+      form.validateFields((err, params) => {
+        if (err) {
+          return;
+        }
+
+        getByDiscover('filter', {}, params).then((response) => {
+          hideModal();
+          setModalVisible(true);
+          if (response.data) {
+            setMovies(response.data);
+            form.resetFields();
+          }
+        });
+      });
+    }
   };
 
   const handleCancel = () => {
@@ -19,14 +48,14 @@ const FilterModal = ({ title, visible, getMovie, buttonKey, hideModal }) => {
 
   return (
     <>
-      <Modal
+      <FilterForm
+        wrappedComponentRef={formRef}
         title={title}
         visible={visible}
-        onOk={handleOk}
         onCancel={handleCancel}
-      >
-        FORM
-      </Modal>
+        onSubmit={handleSubmit}
+        {...formProps}
+      />
       <MovieModal
         title={title}
         visible={modalVisible}
@@ -43,12 +72,11 @@ FilterModal.propTypes = {
   title: PropTypes.string,
   visible: PropTypes.bool.isRequired,
   hideModal: PropTypes.func.isRequired,
-  getMovie: PropTypes.func,
+  getMovie: PropTypes.func.isRequired,
   buttonKey: PropTypes.string,
 };
 
 FilterModal.defaultProps = {
-  getMovie: () => Promise.resolve(),
   title: 'Filter',
   buttonKey: 'filter',
 };
