@@ -1,19 +1,17 @@
 import React, { useState, createRef } from 'react';
-import PropTypes from 'prop-types';
 import MovieModal from '../MovieModal/MovieModal';
 import FilterForm from '../FilterForm/FilterForm';
-import { getByDiscover } from '../../services/api';
+import { getByDiscover, getMovie } from '../../services/api';
 
-const FilterModal = ({
-  title,
-  visible,
-  getMovie,
-  buttonKey,
-  hideModal,
-}) => {
+const FilterWrapper = () => {
   const [movies, setMovies] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const formRef = createRef();
+
+  const modalProps = {
+    title: 'Filter',
+    buttonKey: 'filter',
+  };
 
   const formProps = {
     component: FilterForm,
@@ -29,7 +27,6 @@ const FilterModal = ({
         }
 
         getByDiscover('filter', {}, params).then((response) => {
-          hideModal();
           setModalVisible(true);
           if (response.data) {
             setMovies(response.data);
@@ -41,7 +38,6 @@ const FilterModal = ({
   };
 
   const handleCancel = () => {
-    hideModal();
     console.log("cancel")
   };
 
@@ -49,35 +45,19 @@ const FilterModal = ({
     <>
       <FilterForm
         wrappedComponentRef={formRef}
-        title={title}
-        visible={visible}
         onCancel={handleCancel}
         onSubmit={handleSubmit}
         {...formProps}
       />
       <MovieModal
-        title={title}
         visible={modalVisible}
         hideModal={() => setModalVisible(false)}
-        buttonKey={buttonKey}
         movies={movies}
         getMovie={getMovie}
+        {...modalProps}
       />
     </>
   );
 };
 
-FilterModal.propTypes = {
-  title: PropTypes.string,
-  visible: PropTypes.bool.isRequired,
-  hideModal: PropTypes.func.isRequired,
-  getMovie: PropTypes.func.isRequired,
-  buttonKey: PropTypes.string,
-};
-
-FilterModal.defaultProps = {
-  title: 'Filter',
-  buttonKey: 'filter',
-};
-
-export default FilterModal;
+export default FilterWrapper;

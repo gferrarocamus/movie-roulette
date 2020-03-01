@@ -10,13 +10,13 @@ const MovieModal = ({ title, visible, movies, getMovie, buttonKey, hideModal }) 
   const [rejected, setRejected] = useState(true);
 
   const handleOk = () => {
+    console.log('OK');
     setRejected(true);
     setLoading(true);
     getMovie(buttonKey, movies).then((response) => {
       setMovie(response);
       setLoading(false);
     });
-    console.log('OK');
   };
 
   const handleCancel = () => {
@@ -26,7 +26,6 @@ const MovieModal = ({ title, visible, movies, getMovie, buttonKey, hideModal }) 
   };
 
   useEffect(() => {
-    console.log(buttonKey, movies)
     if (rejected && movies.length > 0) {
       getMovie(buttonKey, movies).then((response) => setMovie(response));
     }
@@ -51,7 +50,6 @@ const MovieModal = ({ title, visible, movies, getMovie, buttonKey, hideModal }) 
       okText="No, show me more"
       cancelText="Sure, I'll watch that"
     >
-      {console.log(JSON.stringify(movie))}
       {!loading && movie && <Movie movie={movie} />}
     </Modal>
   );
