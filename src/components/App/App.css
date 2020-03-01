@@ -2,6 +2,7 @@
 @import '~antd/es/button/style/index.css';
 @import '~antd/es/card/style/index.css';
 @import '~antd/es/checkbox/style/index.css';
+@import '~antd/es/empty/style/index.css';
 @import '~antd/es/form/style/index.css';
 @import '~antd/es/grid/style/index.css';
 @import '~antd/es/icon/style/index.css';
@@ -9,8 +10,11 @@
 @import '~antd/es/layout/style/index.css';
 @import '~antd/es/message/style/index.css';
 @import '~antd/es/modal/style/index.css';
+@import '~antd/es/select/style/index.css';
+@import '~antd/es/spin/style/index.css';
 @import '~antd/es/switch/style/index.css';
 @import '~antd/es/tag/style/index.css';
+@import '~antd/es/tooltip/style/index.css';
 
 :root {
   --yellow: #ffc829;
@@ -90,16 +94,19 @@ a:active {
   color: var(--accent);
 }
 
-button.ant-btn:hover,
-button.ant-btn:focus,
-button.ant-btn:active {
-  color: var(--light-accent);
-  border-color: var(--light-accent);
-}
-
-button.ant-btn.ant-btn-primary {
+button.ant-btn.yellow {
   background-color: var(--yellow);
   border-color: var(--mustard);
+}
+
+button.ant-btn:hover,
+button.ant-btn:focus,
+button.ant-btn:active,
+button.ant-btn.yellow:hover,
+button.ant-btn.yellow:active,
+button.ant-btn.yellow:focus {
+  color: var(--light-accent);
+  border-color: var(--light-accent);
 }
 
 .ant-input:hover {
