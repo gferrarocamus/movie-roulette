@@ -41,13 +41,13 @@ html,
 body,
 #root {
   height: 100%;
-  background: var(--header);
 }
 
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: var(--header);
 }
 
 header.ant-layout-header {
@@ -55,6 +55,23 @@ header.ant-layout-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+header.header .ant-switch {
+  height: 26px;
+  line-height: 24px;
+  min-width: 56px;
+  background-color: var(--accent);
+}
+
+header.header .ant-switch-checked {
+  background-color: var(--accent);
+}
+
+header.header .ant-switch::after {
+  background-color: var(--light-accent);
+  height: 22px;
+  width: 22px;
 }
 
 footer.ant-layout-footer {
@@ -73,17 +90,31 @@ a:active {
   color: var(--accent);
 }
 
+button.ant-btn:hover,
+button.ant-btn:focus,
+button.ant-btn:active {
+  color: var(--light-accent);
+  border-color: var(--light-accent);
+}
+
 button.ant-btn.ant-btn-primary {
   background-color: var(--yellow);
   border-color: var(--mustard);
 }
 
-.header .ant-switch {
-  background-color: var(--mud);
+.ant-input:hover {
+  border-color: var(--light-accent);
 }
 
-.header .ant-switch-checked {
+.ant-checkbox-checked .ant-checkbox-inner {
   background-color: var(--light-accent);
+  border-color: var(--light-accent);
+}
+
+.ant-checkbox-wrapper:hover .ant-checkbox-inner,
+.ant-checkbox:hover .ant-checkbox-inner,
+.ant-checkbox-input:focus + .ant-checkbox-inner {
+  border-color: var(--light-accent);
 }
 
 @media (max-width: 576px) {
