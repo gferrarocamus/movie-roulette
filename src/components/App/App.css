@@ -9,6 +9,7 @@
 @import '~antd/es/layout/style/index.css';
 @import '~antd/es/message/style/index.css';
 @import '~antd/es/modal/style/index.css';
+@import '~antd/es/switch/style/index.css';
 @import '~antd/es/tag/style/index.css';
 
 :root {
@@ -24,7 +25,7 @@
   --hugo: #afa79e;
   --matte: #9b9187;
   --mud: #685f56;
-  --dark: #334d5c;
+  --dark: #4b4b4a;
   --darker: #3a3a38;
   --berry: #ea4949;
   --brown: #bf1717;
@@ -40,6 +41,7 @@ html,
 body,
 #root {
   height: 100%;
+  background: var(--header);
 }
 
 body {
@@ -50,6 +52,9 @@ body {
 
 header.ant-layout-header {
   padding: 12px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 footer.ant-layout-footer {
@@ -71,6 +76,14 @@ a:active {
 button.ant-btn.ant-btn-primary {
   background-color: var(--yellow);
   border-color: var(--mustard);
+}
+
+.header .ant-switch {
+  background-color: var(--mud);
+}
+
+.header .ant-switch-checked {
+  background-color: var(--light-accent);
 }
 
 @media (max-width: 576px) {
