@@ -13,7 +13,7 @@ function App() {
 
   return (
     <Layout className="layout app-container" theme="dark" style={{ minHeight: '100%' }}>
-      <Header handleChange={() => setTraditionalMode(!traditionalMode)} />
+      <Header traditionalMode={traditionalMode} handleChange={() => setTraditionalMode(!traditionalMode)} />
       <Content className="main-container" style={{ height: '100%' }}>
         <div style={{ height: '100%', margin: 'auto' }}>
           {

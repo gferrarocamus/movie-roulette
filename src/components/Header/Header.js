@@ -16,7 +16,7 @@ const iconStyle = {
   padding: '2px',
 };
 
-const HeaderWrapper = ({ handleChange }) => (
+const HeaderWrapper = ({ traditionalMode, handleChange }) => (
   <Header className="header" style={headerStyle}>
     <a href="https://movieroulette.herokuapp.com/" title="MovieRoulette">
       <Logo />
@@ -26,12 +26,14 @@ const HeaderWrapper = ({ handleChange }) => (
         checkedChildren={<Icon type="filter" style={iconStyle} />}
         unCheckedChildren={<Icon type="thunderbolt" style={iconStyle} />}
         onChange={handleChange}
+        checked={!traditionalMode}
       />
     </span>
   </Header>
 );
 
 HeaderWrapper.propTypes = {
+  traditionalMode: PropTypes.bool.isRequired,
   handleChange: PropTypes.func.isRequired,
 };
 

@@ -8,8 +8,8 @@ export const keys = [
 
 export const buttons = [
   ["Editors' Picks", 'gift'],
-  ['Popular', 'star'],
-  ['Trending', 'fire'],
+  ['Popular', 'fire'],
+  ['Trending', 'alert'],
   ['Random', 'experiment'],
 ];
 
