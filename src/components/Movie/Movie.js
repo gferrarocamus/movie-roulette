@@ -4,16 +4,17 @@ import PropTypes from 'prop-types';
 import GenreTag from '../GenreTag';
 import { imageURL } from '../../services/api';
 import { yearFromDate } from '../../services/lib';
-import './Movie.css';
+import pattern from '../../images/pattern.png';
 
 const Movie = ({ movie }) => (
   <Row type="flex" gutter={{ xs: 16, sm: 20, md: 24, lg: 32 }}>
+    {console.log(movie.title)}
     <Col>
       <img
         alt={movie.title}
-        src={imageURL(movie.poster_path, 'w342')}
-        width="200"
-        className="poster"
+        title={movie.title}
+        src={movie.poster_path ? imageURL(movie.poster_path, 'w342') : pattern}
+        style={{ width: '200px', margin: 'auto' }}
       />
     </Col>
     <Col style={{ flex: 1, minWidth: '200px' }}>
@@ -48,8 +49,8 @@ Movie.propTypes = {
     original_title: PropTypes.string.isRequired,
     overview: PropTypes.string.isRequired,
     release_date: PropTypes.string.isRequired,
-    poster_path: PropTypes.string.isRequired,
     genre_ids: PropTypes.arrayOf(PropTypes.number).isRequired,
+    poster_path: PropTypes.string,
   }).isRequired,
 };
 
