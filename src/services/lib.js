@@ -55,8 +55,16 @@ export const localStorageKey = (key) => `MovieRoulette__${key}`;
 
 export const getFromStorage = (key) => {
   const result = localStorage.getItem(localStorageKey(key));
-  return JSON.parse(result);
+
+  try {
+    return JSON.parse(result);
+  } catch (e) {
+    localStorage.deleteItem(localStorageKey(key));
+    return null;
+  }
 };
+
+export const nonEmpty = (parsed) => !!parsed && JSON.stringify(parsed) !== '[]' && JSON.stringify(parsed) !== '{}';
 
 export const setToStorage = (key, result) => localStorage.setItem(localStorageKey(key), JSON.stringify(result));
 

@@ -1,13 +1,13 @@
 import { getResource } from './axios';
 import routes, { routeParams } from './routes';
 import {
+  getFromStorage,
+  nonEmpty,
+  objectToArray,
   selectNFromArray,
   selectOneFromArray,
-  objectToArray,
-  todayISO,
-  localStorageKey,
-  getFromStorage,
   setToStorage,
+  todayISO,
 } from './lib';
 
 const fetchMore = (key, previousPage, lastPage, prev = [], query = null) => {
@@ -21,7 +21,7 @@ const fetchMore = (key, previousPage, lastPage, prev = [], query = null) => {
     page += 1;
 
     if (page >= max) {
-      promiseChain.reject();
+      // promiseChain = Promise.reject();
       break;
     }
 
@@ -43,48 +43,52 @@ const fetchMore = (key, previousPage, lastPage, prev = [], query = null) => {
 const getRemainingInitial = (prev, totalPages) => fetchMore('initial', 1, totalPages, prev);
 
 const getInitial = () => {
-  if (localStorage.MovieRoulette__initial) {
-    return Promise.resolve(getFromStorage('initial'));
+  const storage = getFromStorage('initial');
+  // TODO: consider whether to remove
+  if (nonEmpty(storage)) {
+    return Promise.resolve(storage);
   }
 
+  let fresh = true;
   let totalPages = 1;
   return getResource('initial', {})
     .then((response) => {
       if (response.data) {
         console.log(localStorage);
-        if (localStorage.MovieRoulette__initial) {
-          const picks = getFromStorage('initial');
-          if (response.data.total_results === picks.length) return picks;
-        }
         totalPages = +response.data.total_pages;
+        if (nonEmpty(storage) && response.data.total_results === storage.length) {
+          return storage;
+        }
         console.log(totalPages);
+        fresh = false;
         return response.data.results;
       }
 
-      if (localStorage.MovieRoulette__initial) {
-        return getFromStorage('initial');
-      }
-
-      return [];
+      return storage || [];
     })
     .then((prev) => {
-      if (totalPages === 1) return prev;
+      if (fresh) return prev;
 
       return getRemainingInitial(prev, totalPages);
     })
     .then((results) => {
       console.log('+++++++');
       console.log(results);
-      setToStorage('initial', results);
-      return results;
+      if (nonEmpty(results)) {
+        setToStorage('initial__last_page', totalPages);
+        setToStorage('initial', results);
+        return results;
+      }
+
+      return [];
     });
 };
 
 const getByDiscover = (key, query = null) => {
-  const storageKey = localStorageKey(key);
-
-  if (localStorage[storageKey]) {
-    return Promise.resolve(getFromStorage(key));
+  const storage = getFromStorage(key);
+  // TODO: consider whether to remove
+  if (nonEmpty(storage)) {
+    return Promise.resolve(storage);
   }
 
   const params = query || routeParams(key, todayISO());
@@ -101,9 +105,13 @@ const getByDiscover = (key, query = null) => {
     .then((results) => {
       console.log('+++++++');
       console.log(results);
-      setToStorage(`${key}__last_page`, 10);
-      setToStorage(key, results);
-      return results;
+      if (nonEmpty(results)) {
+        setToStorage(`${key}__last_page`, 10);
+        setToStorage(key, results);
+        return results;
+      }
+
+      return [];
     });
 };
 
@@ -115,7 +123,7 @@ const getInitialSelection = (response, n) => {
 };
 
 const getMovie = (key, prev) => {
-  const bingos = getFromStorage('bingos');
+  const bingos = getFromStorage('bingos') || [];
   const arr = objectToArray(prev);
   const filtered = arr.filter((m) => !bingos.includes(m.id));
   let promiseChain = Promise.resolve(filtered);
@@ -128,23 +136,32 @@ const getMovie = (key, prev) => {
     promiseChain = promiseChain.then(() => (
       fetchMore(key, firstPage, lastPage)
         .then((response) => {
-          setToStorage(`${key}__last_page`, lastPage);
-          setToStorage(key, response);
-          return response;
+          if (nonEmpty(response)) {
+            setToStorage(`${key}__last_page`, lastPage);
+            setToStorage(key, response);
+            return response;
+          }
+
+          return [];
         })
     ));
   }
 
   promiseChain = promiseChain.then((result) => {
     movie = selectOneFromArray(result);
-    if (movie) {
-      const newBingos = [movie.id, ...bingos];
-      setToStorage('bingos', newBingos);
-    }
     return movie;
   });
 
   return promiseChain;
+};
+
+const addToBingos = (movie) => {
+  const bingos = getFromStorage('bingos') || [];
+
+  if (movie && movie.id && !bingos.includes(movie.id)) {
+    const newBingos = [movie.id, ...bingos];
+    setToStorage('bingos', newBingos);
+  }
 };
 
 const imageURL = (path, size = 'w185') => `${routes('image_base')}/${size}/${path}`;
@@ -152,6 +169,7 @@ const imageURL = (path, size = 'w185') => `${routes('image_base')}/${size}/${pat
 export default getInitial;
 
 export {
+  addToBingos,
   getByDiscover,
   getInitial,
   getInitialSelection,

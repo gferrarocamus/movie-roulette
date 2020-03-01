@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import PropTypes from 'prop-types';
 import MovieTile from '../MovieTile/MovieTile';
+import { getFromStorage, nonEmpty } from '../../services/lib';
 import { getByDiscover, getInitialSelection, getInitial } from '../../services/api';
 import { initialMovies, keys, buttons } from '../../data';
 import './Homepage.css';
@@ -20,7 +21,7 @@ const Homepage = () => {
   ];
 
   useEffect(() => {
-    if (localStorage.MovieRoulette__initial) {
+    if (nonEmpty(getFromStorage('initial'))) {
       getInitial().then((response) => {
         setInitial(response);
         setMovies(getInitialSelection(response, buttons.length));
@@ -45,7 +46,7 @@ const Homepage = () => {
 
   return (
     <div className="homepage">
-      {movies.map((movie, i) => (
+      {movies && movies.map((movie, i) => (
         <MovieTile
           key={keys[i]}
           buttonKey={keys[i]}
