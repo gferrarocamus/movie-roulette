@@ -7,8 +7,12 @@ const FooterWrapper = () => (
   <Footer style={{ textAlign: 'center' }}>
     {'Developed by '}
     <a href="https://giulianaferraro.com" target="_blank" rel="noopener noreferrer" title="Giuliana Ferraro">a film nerd</a>
-    {'. Powered by '}
-    <a href="https://www.themoviedb.org" target="_blank" rel="noopener noreferrer" title="The Movie DB">The Movie DB</a>
+    {'. Inspired by the '}
+    <a href="https://letterboxd.com/search/lists/random+movie+roulette/" target="_blank" rel="noopener noreferrer" title="random movie roulette">random movie roulette</a>
+    {' tradition at '}
+    <a href="https://letterboxd.com/" target="_blank" rel="noopener noreferrer" title="Letterboxd">Letterboxd</a>
+    .<br />{'Film data and images supplied by '}
+    <a href="https://www.themoviedb.org" target="_blank" rel="noopener noreferrer" title="TMDb">TMDb</a>
     {'. Icons made by '}
     <a href="https://www.flaticon.com/authors/roundicons" target="_blank" rel="noopener noreferrer" title="Roundicons">Roundicons</a>
     {' from '}
