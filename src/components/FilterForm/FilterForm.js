@@ -195,6 +195,7 @@ const Filter = forwardRef(({ form, onSubmit }, ref) => {
             className="yellow"
           >
             Tell me what to watch
+            <Icon type="filter" theme="filled" />
           </Button>
         </Form.Item>
         {/* certification, production company, adult, video, similar to */}

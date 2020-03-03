@@ -94,22 +94,29 @@ a:active {
   color: var(--accent);
 }
 
-button.ant-btn.yellow {
+button.ant-btn.yellow,
+button.ant-btn.yellow:hover {
   background-color: var(--yellow);
   border-color: var(--mustard);
+  box-shadow: none;
+  font-weight: 700;
+}
+
+button.ant-btn.yellow:hover {
+  color: var(--header);
 }
 
 button.ant-btn:hover,
 button.ant-btn:focus,
 button.ant-btn:active,
-button.ant-btn.yellow:hover,
 button.ant-btn.yellow:active,
 button.ant-btn.yellow:focus {
   color: var(--light-accent);
   border-color: var(--light-accent);
 }
 
-.ant-input:hover {
+.ant-input:hover,
+.ant-select-selection:hover {
   border-color: var(--light-accent);
 }
 

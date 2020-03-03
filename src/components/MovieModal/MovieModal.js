@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Modal } from 'antd';
+import { Button, Modal, Spin } from 'antd';
 import PropTypes from 'prop-types';
 import Movie from '../Movie';
 import { addToBingos } from '../../services/api';
@@ -10,26 +10,26 @@ const MovieModal = ({ title, visible, movies, getMovie, buttonKey, hideModal }) 
   const [rejected, setRejected] = useState(true);
 
   const handleOk = () => {
-    console.log('OK');
     setRejected(true);
     setLoading(true);
-    getMovie(buttonKey, movies).then((response) => {
-      setMovie(response);
-      setLoading(false);
-    });
+    setTimeout(() => {
+      getMovie(buttonKey, movies).then((response) => {
+        setMovie(response);
+        setLoading(false);
+      });
+    }, 1000);
   };
 
   const handleCancel = () => {
-    console.log("cancel")
     setRejected(false);
     hideModal();
   };
 
   useEffect(() => {
-    if (rejected && movies.length > 0) {
+    if (visible && rejected && movies.length > 0) {
       getMovie(buttonKey, movies).then((response) => setMovie(response));
     }
-  }, [buttonKey, getMovie, movies, rejected]);
+  }, [buttonKey, getMovie, movies, rejected, visible]);
 
   useEffect(() => {
     if (visible && movie && movie.id) {
@@ -43,14 +43,23 @@ const MovieModal = ({ title, visible, movies, getMovie, buttonKey, hideModal }) 
       visible={visible}
       onOk={handleOk}
       onCancel={handleCancel}
-      loading={loading}
       width={720}
       okButtonProps={{ shape: 'round', type: 'default' }}
       cancelButtonProps={{ shape: 'round' }}
-      okText="No, show me more"
-      cancelText="Sure, I'll watch that"
+      footer={[
+        <Button shape="round" loading={loading} key="more" onClick={handleOk}>
+          No, show me more
+        </Button>,
+        <Button shape="round" type="default" key="sure" onClick={handleCancel}>
+          Sure, I'll watch that
+        </Button>,
+      ]}
+      bodyStyle={{ minHeight: '348px' }}
     >
-      {!loading && movie && <Movie movie={movie} />}
+      {loading
+        ? <Spin size="large" style={{ lineHeight: '300px', margin: 'auto', display: 'block' }} />
+        : movie && <Movie movie={movie} />
+      }
     </Modal>
   );
 };
