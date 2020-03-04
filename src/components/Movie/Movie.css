@@ -1,0 +1,14 @@
+.poster {
+  width: 200px;
+}
+
+@media (max-width: 463px) {
+  .movie {
+    justify-content: center;
+  }
+
+  .poster {
+    width: 100%;
+    margin-bottom: 1.5em;
+  }
+}

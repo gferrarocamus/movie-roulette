@@ -2,6 +2,10 @@
   content: ' '
 }
 
+.footer-credit:last-child {
+  content: ''
+}
+
 @media (min-width: 662px) {
   .footer-credit:nth-child(2)::after {
     display: block;

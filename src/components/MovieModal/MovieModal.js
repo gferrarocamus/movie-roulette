@@ -3,6 +3,7 @@ import { Button, Modal, Spin } from 'antd';
 import PropTypes from 'prop-types';
 import Movie from '../Movie';
 import { addToBingos } from '../../services/api';
+import './MovieModal.css';
 
 const MovieModal = ({ title, visible, movies, getMovie, buttonKey, hideModal }) => {
   const [movie, setMovie] = useState(null);

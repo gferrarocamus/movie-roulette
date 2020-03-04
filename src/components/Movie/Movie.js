@@ -5,16 +5,16 @@ import GenreTag from '../GenreTag';
 import { imageURL } from '../../services/api';
 import { yearFromDate } from '../../services/lib';
 import pattern from '../../images/pattern.png';
+import './Movie.css';
 
 const Movie = ({ movie }) => (
-  <Row type="flex" gutter={{ xs: 16, sm: 20, md: 24, lg: 32 }}>
-    {console.log(movie.title)}
+  <Row type="flex" gutter={{ xs: 16, sm: 20, md: 24, lg: 32 }} className="movie">
     <Col>
       <img
         alt={movie.title}
         title={movie.title}
         src={movie.poster_path ? imageURL(movie.poster_path, 'w342') : pattern}
-        style={{ width: '200px', margin: 'auto' }}
+        className="poster"
       />
     </Col>
     <Col style={{ flex: 1, minWidth: '200px' }}>
