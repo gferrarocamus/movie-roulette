@@ -3,6 +3,7 @@ import { Button, Modal, Spin } from 'antd';
 import PropTypes from 'prop-types';
 import Movie from '../Movie';
 import { addToBingos } from '../../services/api';
+import './MovieModal.css';
 
 const MovieModal = ({ title, visible, movies, getMovie, buttonKey, hideModal }) => {
   const [movie, setMovie] = useState(null);
@@ -58,7 +59,7 @@ const MovieModal = ({ title, visible, movies, getMovie, buttonKey, hideModal }) 
     >
       {loading
         ? <Spin size="large" style={{ lineHeight: '300px', margin: 'auto', display: 'block' }} />
-        : movie && <Movie movie={movie} />
+        : movie && <Movie movie={movie} pin={!rejected} />
       }
     </Modal>
   );
