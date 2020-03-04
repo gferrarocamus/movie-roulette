@@ -1,0 +1,154 @@
+@import '~antd/es/style/index.css';
+@import '~antd/es/button/style/index.css';
+@import '~antd/es/card/style/index.css';
+@import '~antd/es/checkbox/style/index.css';
+@import '~antd/es/empty/style/index.css';
+@import '~antd/es/form/style/index.css';
+@import '~antd/es/grid/style/index.css';
+@import '~antd/es/icon/style/index.css';
+@import '~antd/es/input/style/index.css';
+@import '~antd/es/layout/style/index.css';
+@import '~antd/es/message/style/index.css';
+@import '~antd/es/modal/style/index.css';
+@import '~antd/es/select/style/index.css';
+@import '~antd/es/spin/style/index.css';
+@import '~antd/es/switch/style/index.css';
+@import '~antd/es/tag/style/index.css';
+@import '~antd/es/tooltip/style/index.css';
+
+:root {
+  --yellow: #ffc829;
+  --sunglow: #ffcd3c;
+  --sunshine: #f9e595;
+  --golden: #efd35b;
+  --mustard: #e8b626;
+  --tan: #d1a422;
+  --light: #e5ddd7;
+  --lighter: #f1f0ee;
+  --white: #ffffff;
+  --hugo: #afa79e;
+  --matte: #9b9187;
+  --mud: #685f56;
+  --dark: #4b4b4a;
+  --darker: #3a3a38;
+  --berry: #ea4949;
+  --brown: #bf1717;
+  --accent: #334d5c;
+  --faint-accent: #9bbcce;
+  --light-accent: #6297b2;
+  --bright-accent: #25b7d3;
+  --header: #001529;
+  --almost-black: #141414;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--header);
+}
+
+main.main-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+header.ant-layout-header {
+  padding: 12px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header.header .ant-switch {
+  height: 26px;
+  line-height: 24px;
+  min-width: 56px;
+  background-color: var(--accent);
+}
+
+header.header .ant-switch-checked {
+  background-color: var(--accent);
+}
+
+header.header .ant-switch::after {
+  background-color: var(--light-accent);
+  height: 22px;
+  width: 22px;
+}
+
+footer.ant-layout-footer {
+  background: linear-gradient(var(--yellow), var(--tan));
+  line-height: 30px;
+  color: var(--header);
+}
+
+a {
+  color: var(--light-accent);
+}
+
+a:hover,
+a:focus,
+a:active {
+  color: var(--accent);
+}
+
+button.ant-btn.yellow,
+button.ant-btn.yellow:hover {
+  background-color: var(--yellow);
+  border-color: var(--mustard);
+  box-shadow: none;
+  font-weight: 700;
+}
+
+button.ant-btn.yellow:hover {
+  color: var(--header);
+}
+
+button.ant-btn-loading:hover {
+  cursor: not-allowed;
+}
+
+button.ant-btn:hover,
+button.ant-btn:focus,
+button.ant-btn:active,
+button.ant-btn.yellow:active,
+button.ant-btn.yellow:focus {
+  color: var(--light-accent);
+  border-color: var(--light-accent);
+}
+
+.ant-input:hover,
+.ant-select-selection:hover {
+  border-color: var(--light-accent);
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: var(--light-accent);
+  border-color: var(--light-accent);
+}
+
+.ant-checkbox-wrapper:hover .ant-checkbox-inner,
+.ant-checkbox:hover .ant-checkbox-inner,
+.ant-checkbox-input:focus + .ant-checkbox-inner {
+  border-color: var(--light-accent);
+}
+
+@media (max-width: 576px) {
+  header.ant-layout-header {
+    padding: 12px 15px;
+  }
+
+  footer.ant-layout-footer {
+    padding: 24px 15px;
+    line-height: inherit;
+  }
+}
