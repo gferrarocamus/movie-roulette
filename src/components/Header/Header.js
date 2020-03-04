@@ -18,7 +18,7 @@ const iconStyle = {
 
 const HeaderWrapper = ({ traditionalMode, handleChange }) => (
   <Header className="header" style={headerStyle}>
-    <a href="https://movieroulette.herokuapp.com/" title="MovieRoulette">
+    <a href="https://movieroulette.herokuapp.com/" title="MovieRoulette | Discover What To Watch">
       <Logo />
     </a>
     <span>
