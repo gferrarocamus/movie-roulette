@@ -54,6 +54,13 @@ body {
   background: var(--header);
 }
 
+main.main-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 header.ant-layout-header {
   padding: 12px 50px;
   display: flex;
@@ -104,6 +111,10 @@ button.ant-btn.yellow:hover {
 
 button.ant-btn.yellow:hover {
   color: var(--header);
+}
+
+button.ant-btn-loading:hover {
+  cursor: not-allowed;
 }
 
 button.ant-btn:hover,

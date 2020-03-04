@@ -1,0 +1,8 @@
+.under-construction .ant-empty-description {
+  font-weight: 700;
+  font-size: 28px;
+  margin-top: 1em;
+  font-family: 'Bebas Neue', cursive;
+  transition: all 0.3s ease-in-out;
+  color: var(--accent);
+}
