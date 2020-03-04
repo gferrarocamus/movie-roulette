@@ -1,5 +1,6 @@
 .poster {
   width: 200px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.015);
 }
 
 @media (max-width: 463px) {

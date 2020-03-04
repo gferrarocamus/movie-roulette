@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Row } from 'antd';
+import { Col, Icon, Row, Tooltip } from 'antd';
 import PropTypes from 'prop-types';
 import GenreTag from '../GenreTag';
 import { imageURL } from '../../services/api';
@@ -7,7 +7,7 @@ import { yearFromDate } from '../../services/lib';
 import pattern from '../../images/pattern.png';
 import './Movie.css';
 
-const Movie = ({ movie }) => (
+const Movie = ({ movie, pin }) => (
   <Row type="flex" gutter={{ xs: 16, sm: 20, md: 24, lg: 32 }} className="movie">
     <Col>
       <img
@@ -20,8 +20,14 @@ const Movie = ({ movie }) => (
     <Col style={{ flex: 1, minWidth: '200px' }}>
       <h1 style={{ marginBottom: 0 }}>
         {movie.title}
-        {' '}
+        &nbsp;
         <small>{`(${yearFromDate(movie.release_date)})`}</small>
+        &nbsp;
+        {pin && (
+          <Tooltip title="You should watch this!" placement="right">
+            <Icon type="pushpin" theme="filled" style={{ color: 'var(--light-accent)' }} />
+          </Tooltip>
+        )}
       </h1>
       {movie.title !== movie.original_title && (
         <h2><small><em>{movie.original_title}</em></small></h2>
@@ -36,13 +42,15 @@ const Movie = ({ movie }) => (
         title="Read More"
         href={`https://www.themoviedb.org/movie/${movie.id}`}
       >
-        Read More
+        {'Read More '}
+        <Icon type="arrow-right" />
       </a>
     </Col>
   </Row>
 );
 
 Movie.propTypes = {
+  pin: PropTypes.bool.isRequired,
   movie: PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,

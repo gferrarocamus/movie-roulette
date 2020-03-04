@@ -59,7 +59,7 @@ const MovieModal = ({ title, visible, movies, getMovie, buttonKey, hideModal }) 
     >
       {loading
         ? <Spin size="large" style={{ lineHeight: '300px', margin: 'auto', display: 'block' }} />
-        : movie && <Movie movie={movie} />
+        : movie && <Movie movie={movie} pin={!rejected} />
       }
     </Modal>
   );
