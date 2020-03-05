@@ -23,7 +23,7 @@ export const routeParams = (key, date = '') => {
       'vote_count.gte': 100,
       'vote_average.gte': 2,
       'with_runtime.gte': 40,
-      sort_by: 'popularity.desc',
+      sort_by: 'popularity.asc',
     },
     trending: {},
   };
