@@ -12,6 +12,7 @@ const Homepage = () => {
   const [trending, setTrending] = useState([]);
   const [popular, setPopular] = useState([]);
   const [random, setRandom] = useState([]);
+  const [buttonsVisible, setButtonsVisible] = useState(true);
 
   const fetchedMovies = [
     initial,
@@ -53,6 +54,8 @@ const Homepage = () => {
           buttonData={buttons[i]}
           movie={movie}
           movies={fetchedMovies[i]}
+          buttonsVisible={buttonsVisible}
+          setButtonsVisible={setButtonsVisible}
         />
       ))}
     </div>

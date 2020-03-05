@@ -47,6 +47,7 @@ const MovieModal = ({ title, visible, movies, getMovie, buttonKey, hideModal }) 
       width={720}
       okButtonProps={{ shape: 'round', type: 'default' }}
       cancelButtonProps={{ shape: 'round' }}
+      centered
       footer={[
         <Button shape="round" loading={loading} key="more" onClick={handleOk}>
           No, show me more
