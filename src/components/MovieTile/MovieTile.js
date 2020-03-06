@@ -4,7 +4,14 @@ import { Button, Icon } from 'antd';
 import MovieModal from '../MovieModal';
 import { imageURL, getMovie } from '../../services/api';
 
-const MovieTile = ({ movie, movies, buttonKey, buttonData, buttonsVisible, setButtonsVisible }) => {
+const MovieTile = ({
+  buttonData,
+  buttonKey,
+  buttonsVisible,
+  movie,
+  movies,
+  setButtonsVisible,
+}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const handleClick = () => {
     setButtonsVisible(false);

@@ -14,15 +14,19 @@ export const routeParams = (key, date = '') => {
   const params = {
     initial: {},
     popular: {
-      sort_by: 'popularity.desc',
+      include_adult: false,
+      include_video: false,
+      'with_runtime.gte': 40,
+      'primary_release_date.lte': date,
+      sort_by: 'vote_count.desc',
     },
     random: {
       include_adult: false,
       include_video: false,
+      'with_runtime.gte': 40,
       'primary_release_date.lte': date,
       'vote_count.gte': 100,
-      'vote_average.gte': 2,
-      'with_runtime.gte': 40,
+      'vote_average.gte': 5,
       sort_by: 'popularity.asc',
     },
     trending: {},
