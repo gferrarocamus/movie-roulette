@@ -1,14 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Modal, Spin } from 'antd';
+import { Button, Icon, Modal, Spin, Tooltip } from 'antd';
 import PropTypes from 'prop-types';
 import Movie from '../Movie';
 import { addToBingos } from '../../services/api';
 import './MovieModal.css';
 
-const MovieModal = ({ title, visible, movies, getMovie, buttonKey, hideModal }) => {
+const MovieModal = ({
+  buttonKey,
+  getMovie,
+  hideModal,
+  movies,
+  title,
+  visible,
+}) => {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(false);
   const [rejected, setRejected] = useState(true);
+
+  const buttonTooltips = {
+    popular: (
+      <span>
+        {'Based on number of user votes at '}
+        <a href="https://themoviedb.org/">TMDB</a>
+      </span>
+    ),
+    trending: (
+      <span>
+        {'Based on user activity increase in the last 24 hours at '}
+        <a href="https://developers.themoviedb.org/3/trending/get-trending">TMDb</a>
+      </span>
+    ),
+  };
 
   const handleOk = () => {
     setRejected(true);
@@ -40,7 +62,17 @@ const MovieModal = ({ title, visible, movies, getMovie, buttonKey, hideModal }) 
 
   return (
     <Modal
-      title={title}
+      title={(
+        <>
+          {title}
+          &nbsp;
+          {buttonTooltips[buttonKey] && (
+            <Tooltip title={buttonTooltips[buttonKey]} placement="right" overlayStyle={{ maxWidth: '100%' }}>
+              <Icon type="question-circle" style={{ fontSize: '0.8em', opacity: 0.5 }} />
+            </Tooltip>
+          )}
+        </>
+      )}
       visible={visible}
       onOk={handleOk}
       onCancel={handleCancel}
