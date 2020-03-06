@@ -66,7 +66,7 @@ export const getFromStorage = (key) => {
 
 export const setToStorage = (key, result) => localStorage.setItem(localStorageKey(key), JSON.stringify(result));
 
-export const clearStorage = (keys) => {
+export const clearStorageByKeys = (keys) => {
   keys.forEach((key) => localStorage.removeItem(localStorageKey(key)));
 };
 

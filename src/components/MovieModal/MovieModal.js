@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Icon, Modal, Spin, Tooltip } from 'antd';
 import PropTypes from 'prop-types';
-import Movie from '../Movie';
 import { addToBingos } from '../../services/api';
+import MovieModalContent from '../MovieModalContent';
 import './MovieModal.css';
 
 const MovieModal = ({
@@ -60,6 +60,15 @@ const MovieModal = ({
     }
   }, [movie, visible]);
 
+  const footer = [
+    <Button shape="round" loading={loading} key="more" onClick={handleOk}>
+      No, show me more
+    </Button>,
+    <Button shape="round" type="default" key="sure" onClick={handleCancel}>
+      Sure, I'll watch that
+    </Button>,
+  ];
+
   return (
     <Modal
       title={(
@@ -80,19 +89,12 @@ const MovieModal = ({
       okButtonProps={{ shape: 'round', type: 'default' }}
       cancelButtonProps={{ shape: 'round' }}
       centered
-      footer={[
-        <Button shape="round" loading={loading} key="more" onClick={handleOk}>
-          No, show me more
-        </Button>,
-        <Button shape="round" type="default" key="sure" onClick={handleCancel}>
-          Sure, I'll watch that
-        </Button>,
-      ]}
+      footer={movie ? footer : null}
       bodyStyle={{ minHeight: '348px' }}
     >
       {loading
         ? <Spin size="large" style={{ lineHeight: '300px', margin: 'auto', display: 'block' }} />
-        : movie && <Movie movie={movie} pin={!rejected} />
+        : <MovieModalContent rejected={rejected} movie={movie} hideModal={hideModal} />
       }
     </Modal>
   );
