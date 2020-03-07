@@ -1,15 +1,15 @@
 export const keys = [
   'initial',
-  'popular',
   'trending',
+  'popular',
   'random',
   'filter',
 ];
 
 export const buttons = [
   ["Editors' Picks", 'gift'],
-  ['Popular', 'fire'],
-  ['Trending', 'alert'],
+  ['Trending', 'fire'],
+  ['Popular', 'star'],
   ['Random', 'experiment'],
 ];
 

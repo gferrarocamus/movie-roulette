@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 // import PropTypes from 'prop-types';
 import MovieTile from '../MovieTile/MovieTile';
-import { getFromStorage, nonEmpty } from '../../services/lib';
-import { getByDiscover, getInitialSelection, getInitial } from '../../services/api';
+import { getFromStorage, nonEmpty, updateStorage } from '../../services/lib';
+import { getByDiscover, getInitial, getInitialSelection } from '../../services/api';
 import { initialMovies, keys, buttons } from '../../data';
 import './Homepage.css';
 
@@ -12,6 +12,7 @@ const Homepage = () => {
   const [trending, setTrending] = useState([]);
   const [popular, setPopular] = useState([]);
   const [random, setRandom] = useState([]);
+  const [buttonsVisible, setButtonsVisible] = useState(true);
 
   const fetchedMovies = [
     initial,
@@ -19,6 +20,10 @@ const Homepage = () => {
     popular,
     random,
   ];
+
+  useEffect(() => {
+    updateStorage();
+  }, []);
 
   useEffect(() => {
     if (nonEmpty(getFromStorage('initial'))) {
@@ -53,6 +58,8 @@ const Homepage = () => {
           buttonData={buttons[i]}
           movie={movie}
           movies={fetchedMovies[i]}
+          buttonsVisible={buttonsVisible}
+          setButtonsVisible={setButtonsVisible}
         />
       ))}
     </div>

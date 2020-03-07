@@ -59,13 +59,30 @@ export const getFromStorage = (key) => {
   try {
     return JSON.parse(result);
   } catch (e) {
-    localStorage.deleteItem(localStorageKey(key));
+    localStorage.removeItem(localStorageKey(key));
     return null;
   }
 };
 
-export const nonEmpty = (parsed) => !!parsed && JSON.stringify(parsed) !== '[]' && JSON.stringify(parsed) !== '{}';
-
 export const setToStorage = (key, result) => localStorage.setItem(localStorageKey(key), JSON.stringify(result));
+
+export const clearStorageByKeys = (keys) => {
+  keys.forEach((key) => localStorage.removeItem(localStorageKey(key)));
+};
+
+export const updateStorage = () => {
+  const dateString = getFromStorage('lastUpdated');
+  const today = new Date().getTime();
+  const date = dateString ? Date.parse(dateString) : null;
+
+  if (date && today - date <= 6.048e+8) return false;
+
+  // clear storage if there's no date recorded or date is older than 7 days ago
+  localStorage.clear();
+  setToStorage('lastUpdated', todayISO());
+  return true;
+};
+
+export const nonEmpty = (parsed) => !!parsed && JSON.stringify(parsed) !== '[]' && JSON.stringify(parsed) !== '{}';
 
 export default selectNFromArray;

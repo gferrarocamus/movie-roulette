@@ -14,7 +14,7 @@ const fetchMore = (key, previousPage, lastPage, prev = [], query = null) => {
   let page = previousPage;
   let promiseChain = Promise.resolve();
   const results = [...prev];
-  const max = key === 'initial' ? 500 : 1000; // as per TMDB's API definition
+  const max = key === 'trending' ? 1000 : 500; // as per TMDB's API definition
   const params = query || routeParams(key, todayISO());
 
   while (page < lastPage) {
@@ -54,12 +54,11 @@ const getInitial = () => {
   return getResource('initial', {})
     .then((response) => {
       if (response.data) {
-        console.log(localStorage);
         totalPages = +response.data.total_pages;
         if (nonEmpty(storage) && response.data.total_results === storage.length) {
           return storage;
         }
-        console.log(totalPages);
+
         fresh = false;
         return response.data.results;
       }
@@ -72,8 +71,7 @@ const getInitial = () => {
       return getRemainingInitial(prev, totalPages);
     })
     .then((results) => {
-      console.log('+++++++');
-      console.log(results);
+      console.log('+++++++', results);
       if (nonEmpty(results)) {
         setToStorage('initial__last_page', totalPages);
         setToStorage('initial', results);
@@ -103,8 +101,7 @@ const getByDiscover = (key, query = null) => {
     })
     .then((prev) => fetchMore(key, 1, 10, prev))
     .then((results) => {
-      console.log('+++++++');
-      console.log(results);
+      console.log('+++++++', results);
       if (nonEmpty(results)) {
         setToStorage(`${key}__last_page`, 10);
         setToStorage(key, results);

@@ -4,8 +4,24 @@ import { Button, Icon } from 'antd';
 import MovieModal from '../MovieModal';
 import { imageURL, getMovie } from '../../services/api';
 
-const MovieTile = ({ movie, movies, buttonKey, buttonData }) => {
+const MovieTile = ({
+  buttonData,
+  buttonKey,
+  buttonsVisible,
+  movie,
+  movies,
+  setButtonsVisible,
+}) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const handleClick = () => {
+    setButtonsVisible(false);
+    setModalVisible(true);
+  };
+
+  const hideModal = () => {
+    setButtonsVisible(true);
+    setModalVisible(false);
+  };
 
   return (
     <Fragment key={movie.id}>
@@ -16,22 +32,24 @@ const MovieTile = ({ movie, movies, buttonKey, buttonData }) => {
           alt={movie.title}
           src={imageURL(movie.backdrop_path, 'w780')}
         />
-        <Button
-          shape="round"
-          size="large"
-          className="main-action"
-          onClick={() => setModalVisible(true)}
-        >
-          {buttonData[0]}
-          <Icon type={buttonData[1]} theme="filled" />
-        </Button>
+        {buttonsVisible && (
+          <Button
+            shape="round"
+            size="large"
+            className="main-action"
+            onClick={handleClick}
+          >
+            {buttonData[0]}
+            <Icon type={buttonData[1]} theme="filled" />
+          </Button>
+        )}
       </div>
       <MovieModal
         key={buttonKey}
         buttonKey={buttonKey}
         title={buttonData[0]}
         visible={modalVisible}
-        hideModal={() => setModalVisible(false)}
+        hideModal={hideModal}
         movies={movies}
         getMovie={getMovie}
       />
@@ -40,6 +58,8 @@ const MovieTile = ({ movie, movies, buttonKey, buttonData }) => {
 };
 
 MovieTile.propTypes = {
+  setButtonsVisible: PropTypes.func.isRequired,
+  buttonsVisible: PropTypes.bool.isRequired,
   buttonKey: PropTypes.string.isRequired,
   buttonData: PropTypes.arrayOf(
     PropTypes.string,

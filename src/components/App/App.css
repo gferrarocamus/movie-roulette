@@ -101,6 +101,16 @@ a:active {
   color: var(--accent);
 }
 
+.ant-tooltip a {
+  color: var(--faint-accent);
+}
+
+.ant-tooltip a:hover,
+.ant-tooltip a:focus,
+.ant-tooltip a:active {
+  color: var(--light-accent);
+}
+
 button.ant-btn.yellow,
 button.ant-btn.yellow:hover {
   background-color: var(--yellow);
