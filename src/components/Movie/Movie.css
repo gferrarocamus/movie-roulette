@@ -3,6 +3,19 @@
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.015);
 }
 
+.pin {
+  transform: translateX(0) translateY(0);
+  opacity: 1;
+  animation: appear 200ms normal backwards;
+}
+
+@keyframes appear {
+  from {
+    transform: translateX(5px) translateY(-5px);
+    opacity: 0;
+  }
+}
+
 @media (max-width: 463px) {
   .movie {
     justify-content: center;

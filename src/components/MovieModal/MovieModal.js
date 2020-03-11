@@ -12,6 +12,7 @@ const MovieModal = ({
   movies,
   title,
   visible,
+  ...rest
 }) => {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -44,8 +45,11 @@ const MovieModal = ({
   };
 
   const handleCancel = () => {
+    const delay = rejected ? 500 : 0;
     setRejected(false);
-    hideModal();
+    setTimeout(() => {
+      hideModal();
+    }, delay);
   };
 
   useEffect(() => {
@@ -91,10 +95,22 @@ const MovieModal = ({
       centered
       footer={movie ? footer : null}
       bodyStyle={{ minHeight: '348px' }}
+      className={rejected ? 'rejected' : 'accepted'}
     >
       {loading
-        ? <Spin size="large" style={{ lineHeight: '300px', margin: 'auto', display: 'block' }} />
-        : <MovieModalContent rejected={rejected} movie={movie} hideModal={hideModal} />
+        ? (
+          <Spin
+            size="large"
+            style={{ lineHeight: '300px', margin: 'auto', display: 'block' }}
+          />
+        ) : (
+          <MovieModalContent
+            rejected={rejected}
+            movie={movie}
+            hideModal={hideModal}
+            {...rest}
+          />
+        )
       }
     </Modal>
   );

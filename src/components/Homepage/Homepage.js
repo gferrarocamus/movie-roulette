@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import MovieTile from '../MovieTile/MovieTile';
 import { getFromStorage, nonEmpty, updateStorage } from '../../services/lib';
 import { getByDiscover, getInitial, getInitialSelection } from '../../services/api';
 import { initialMovies, keys, buttons } from '../../data';
 import './Homepage.css';
 
-const Homepage = () => {
+const Homepage = (props) => {
   const [movies, setMovies] = useState([]);
   const [initial, setInitial] = useState([]);
   const [trending, setTrending] = useState([]);
@@ -60,14 +60,16 @@ const Homepage = () => {
           movies={fetchedMovies[i]}
           buttonsVisible={buttonsVisible}
           setButtonsVisible={setButtonsVisible}
+          {...props}
         />
       ))}
     </div>
   );
 };
 
-// Homepage.propTypes = {};
-
-// Homepage.defaultProps = {};
+Homepage.propTypes = {
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+};
 
 export default Homepage;
