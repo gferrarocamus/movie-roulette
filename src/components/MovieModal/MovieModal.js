@@ -45,8 +45,11 @@ const MovieModal = ({
   };
 
   const handleCancel = () => {
+    const delay = rejected ? 500 : 0;
     setRejected(false);
-    hideModal();
+    setTimeout(() => {
+      hideModal();
+    }, delay);
   };
 
   useEffect(() => {
@@ -92,6 +95,7 @@ const MovieModal = ({
       centered
       footer={movie ? footer : null}
       bodyStyle={{ minHeight: '348px' }}
+      className={rejected ? 'rejected' : 'accepted'}
     >
       {loading
         ? (

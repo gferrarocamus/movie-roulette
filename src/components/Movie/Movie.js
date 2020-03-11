@@ -41,7 +41,12 @@ const Movie = ({ movie, pin, width }) => {
           &nbsp;
           {pin && (
             <Tooltip title="You should watch this!" placement="right">
-              <Icon type="pushpin" theme="filled" style={{ color: 'var(--light-accent)' }} />
+              <Icon
+                type="pushpin"
+                theme="filled"
+                style={{ color: 'var(--light-accent)' }}
+                className="pin"
+              />
             </Tooltip>
           )}
         </h1>
