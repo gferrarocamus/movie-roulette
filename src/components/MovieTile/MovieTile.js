@@ -15,6 +15,8 @@ const MovieTile = ({
   width,
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const containerHeight = width > 992 ? (height - 77) / 2 : (height - 77) / 4;
+
   const handleClick = () => {
     setButtonsVisible(false);
     setModalVisible(true);
@@ -29,11 +31,7 @@ const MovieTile = ({
     <Fragment key={movie.id}>
       <div
         className="backdrop-container"
-        style={(
-          width > 992
-            ? { height: (height - 77) / 2 }
-            : { height: (height - 77) / 4 }
-        )}
+        style={{ height: containerHeight }}
       >
         <img
           key={movie.backdrop_path}
