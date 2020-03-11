@@ -48,7 +48,7 @@ const Movie = ({ movie, pin, width }) => {
         {movie.title !== movie.original_title && (
           <h2><small><em>{movie.original_title}</em></small></h2>
         )}
-        <div style={{ margin: '1em 0' }}>
+        <div style={{ marginTop: '1em', marginBottom: '0.5em' }}>
           {movie.genre_ids !== undefined && movie.genre_ids.map((id) => <GenreTag key={id} id={id} />)}
         </div>
         <p>{movie.overview}</p>

@@ -5,7 +5,9 @@ import { genreNameFromId } from '../../services/lib';
 import { genres } from '../../data';
 
 const GenreTag = ({ id, color }) => (
-  <Tag color={color}>{genreNameFromId(genres, id)}</Tag>
+  <Tag color={color} style={{ marginBottom: '0.5em' }}>
+    {genreNameFromId(genres, id)}
+  </Tag>
 );
 
 GenreTag.propTypes = {
