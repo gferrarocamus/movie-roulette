@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Layout } from 'antd';
 import Header from '../Header';
 import Homepage from '../Homepage';
@@ -11,6 +11,22 @@ const { Content } = Layout;
 
 function App() {
   const [traditionalMode, setTraditionalMode] = useState(true);
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    function updateWindowDimensions() {
+      setWidth(window.innerWidth);
+      setHeight(window.innerHeight);
+    }
+
+    updateWindowDimensions();
+    window.addEventListener('resize', updateWindowDimensions.bind(this));
+
+    return function cleanup() {
+      window.removeEventListener('resize', updateWindowDimensions.bind(this));
+    };
+  });
 
   return (
     <Layout className="layout app-container" theme="dark" style={{ minHeight: '100%' }}>
@@ -18,7 +34,7 @@ function App() {
       <Content className="main-container">
         {
           traditionalMode
-            ? <Homepage />
+            ? <Homepage width={width} height={height} />
             : <UnderConstruction description="Filter Mode Coming Soon" />
         }
       </Content>

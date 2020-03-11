@@ -1,8 +1,9 @@
 .form-container {
-  min-height: calc(100vh - 77px);
+  /* min-height: calc(100vh - 77px); */
   position: relative;
   transition: all 0.3s ease-in-out;
   display: flex;
+  width: 100%;
 }
 
 .form-container form {

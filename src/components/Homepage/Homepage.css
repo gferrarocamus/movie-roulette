@@ -1,7 +1,7 @@
 .homepage .backdrop-container {
   display: inline-block;
   width: 50%;
-  height: calc((calc(100vh - 77px)) / 2);
+  /* height: calc((calc(100vh - 77px)) / 2); */
   position: relative;
   background-color: var(--accent);
   transition: background-color 0.3s ease-in-out;
@@ -85,7 +85,7 @@
 @media (max-width: 992px) {
   .homepage .backdrop-container {
     width: 100%;
-    height: calc((calc(100vh - 77px)) / 4);
+    /* height: calc((calc(100vh - 77px)) / 4); */
   }
 }
 

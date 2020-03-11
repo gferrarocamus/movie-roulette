@@ -8,9 +8,11 @@ const MovieTile = ({
   buttonData,
   buttonKey,
   buttonsVisible,
+  height,
   movie,
   movies,
   setButtonsVisible,
+  width,
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const handleClick = () => {
@@ -25,7 +27,14 @@ const MovieTile = ({
 
   return (
     <Fragment key={movie.id}>
-      <div className="backdrop-container">
+      <div
+        className="backdrop-container"
+        style={(
+          width > 992
+            ? { height: (height - 77) / 2 }
+            : { height: (height - 77) / 4 }
+        )}
+      >
         <img
           key={movie.backdrop_path}
           className="backdrop"
@@ -52,18 +61,20 @@ const MovieTile = ({
         hideModal={hideModal}
         movies={movies}
         getMovie={getMovie}
+        width={width}
+        height={height}
       />
     </Fragment>
   );
 };
 
 MovieTile.propTypes = {
-  setButtonsVisible: PropTypes.func.isRequired,
-  buttonsVisible: PropTypes.bool.isRequired,
-  buttonKey: PropTypes.string.isRequired,
   buttonData: PropTypes.arrayOf(
     PropTypes.string,
   ).isRequired,
+  buttonKey: PropTypes.string.isRequired,
+  buttonsVisible: PropTypes.bool.isRequired,
+  height: PropTypes.number.isRequired,
   movie: PropTypes.shape({
     backdrop_path: PropTypes.string,
     title: PropTypes.string,
@@ -72,6 +83,8 @@ MovieTile.propTypes = {
   movies: PropTypes.arrayOf(
     PropTypes.shape({}),
   ),
+  setButtonsVisible: PropTypes.func.isRequired,
+  width: PropTypes.number.isRequired,
 };
 
 MovieTile.defaultProps = {
