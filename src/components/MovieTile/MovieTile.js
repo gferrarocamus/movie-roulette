@@ -36,6 +36,11 @@ const MovieTile = ({
         )}
       >
         <img
+          srcSet={(
+            `${imageURL(movie.backdrop_path, 'w300')} 300w,
+            ${imageURL(movie.backdrop_path, 'w780')} 780w,
+            ${imageURL(movie.backdrop_path, 'w1280')} 1280w`
+          )}
           key={movie.backdrop_path}
           className="backdrop"
           alt={movie.title}

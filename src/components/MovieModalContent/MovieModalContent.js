@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import EmptyMovie from '../EmptyMovie';
 import Movie from '../Movie';
 
-const MovieModalContent = ({ movie, rejected, hideModal }) => (
+const MovieModalContent = ({ movie, rejected, hideModal, ...rest }) => (
   movie
-    ? <Movie movie={movie} pin={!rejected} />
+    ? <Movie movie={movie} pin={!rejected} {...rest} />
     : <EmptyMovie hideModal={hideModal} />
 );
 

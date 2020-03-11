@@ -12,6 +12,7 @@ const MovieModal = ({
   movies,
   title,
   visible,
+  ...rest
 }) => {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -93,8 +94,19 @@ const MovieModal = ({
       bodyStyle={{ minHeight: '348px' }}
     >
       {loading
-        ? <Spin size="large" style={{ lineHeight: '300px', margin: 'auto', display: 'block' }} />
-        : <MovieModalContent rejected={rejected} movie={movie} hideModal={hideModal} />
+        ? (
+          <Spin
+            size="large"
+            style={{ lineHeight: '300px', margin: 'auto', display: 'block' }}
+          />
+        ) : (
+          <MovieModalContent
+            rejected={rejected}
+            movie={movie}
+            hideModal={hideModal}
+            {...rest}
+          />
+        )
       }
     </Modal>
   );

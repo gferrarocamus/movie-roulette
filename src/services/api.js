@@ -1,5 +1,5 @@
 import { getResource } from './axios';
-import routes, { routeParams } from './routes';
+import { routeParams, imageConfig } from './routes';
 import {
   getFromStorage,
   nonEmpty,
@@ -161,7 +161,11 @@ const addToBingos = (movie) => {
   }
 };
 
-const imageURL = (path, size = 'w185') => `${routes('image_base')}/${size}/${path}`;
+const imageURL = (path, size = 'w185') => `${imageConfig.secure_base_url}/${size}/${path}`;
+
+const imageSrcSet = (path, set) => (
+  set.map((width) => `${imageURL(path, `w${width}`)} ${width}w`).join(', ')
+);
 
 export default getInitial;
 
@@ -171,5 +175,6 @@ export {
   getInitial,
   getInitialSelection,
   getMovie,
+  imageSrcSet,
   imageURL,
 };
