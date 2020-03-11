@@ -2,7 +2,7 @@ import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Icon } from 'antd';
 import MovieModal from '../MovieModal';
-import { imageURL, getMovie } from '../../services/api';
+import { imageSrcSet, imageURL, getMovie } from '../../services/api';
 
 const MovieTile = ({
   buttonData,
@@ -36,14 +36,10 @@ const MovieTile = ({
         )}
       >
         <img
-          srcSet={(
-            `${imageURL(movie.backdrop_path, 'w300')} 300w,
-            ${imageURL(movie.backdrop_path, 'w780')} 780w,
-            ${imageURL(movie.backdrop_path, 'w1280')} 1280w`
-          )}
           key={movie.backdrop_path}
           className="backdrop"
           alt={movie.title}
+          srcSet={imageSrcSet(movie.backdrop_path, [300, 780, 1280])}
           src={imageURL(movie.backdrop_path, 'w780')}
         />
         {buttonsVisible && (
