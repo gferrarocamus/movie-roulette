@@ -1,4 +1,4 @@
-.homepage .backdrop-container {
+.main-categories .backdrop-container {
   display: inline-block;
   width: 50%;
   /* height: calc((calc(100vh - 77px)) / 2); */
@@ -7,8 +7,8 @@
   transition: background-color 0.3s ease-in-out;
 }
 
-.homepage .backdrop-container:first-child,
-.homepage .backdrop-container:last-child {
+.main-categories .backdrop-container:first-child,
+.main-categories .backdrop-container:last-child {
   background-color: var(--light-accent);
 }
 
@@ -24,9 +24,9 @@
   cursor: default;
 }
 
-.homepage .backdrop-container:hover,
-.homepage .backdrop-container:active,
-.homepage .backdrop-container:focus {
+.main-categories .backdrop-container:hover,
+.main-categories .backdrop-container:active,
+.main-categories .backdrop-container:focus {
   background-color: var(--yellow);
 }
 
@@ -38,7 +38,7 @@
   border-radius: 150px;
 }
 
-.homepage .main-action {
+.main-categories .main-action {
   position: absolute;
   width: 174px;
   top: calc(50% - 20px);
@@ -49,8 +49,8 @@
   font-weight: 700;
 }
 
-.homepage .main-action:focus,
-.homepage .main-action:active {
+.main-categories .main-action:focus,
+.main-categories .main-action:active {
   color: var(--light-accent);
   background-color: var(--yellow);
 }
@@ -58,7 +58,7 @@
 .backdrop-container:hover .main-action,
 .backdrop-container:active .main-action,
 .backdrop-container:focus .main-action,
-.homepage .main-action:hover {
+.main-categories .main-action:hover {
   color: var(--header);
   background-color: transparent;
   border-color: transparent;
@@ -77,13 +77,13 @@
   .backdrop-container:hover .main-action,
   .backdrop-container:active .main-action,
   .backdrop-container:focus .main-action,
-  .homepage .main-action:hover {
+  .main-categories .main-action:hover {
     font-size: 54px;
   }
 }
 
 @media (max-width: 992px) {
-  .homepage .backdrop-container {
+  .main-categories .backdrop-container {
     width: 100%;
     /* height: calc((calc(100vh - 77px)) / 4); */
   }
@@ -93,7 +93,7 @@
   .backdrop-container:hover .main-action,
   .backdrop-container:active .main-action,
   .backdrop-container:focus .main-action,
-  .homepage .main-action:hover {
+  .main-categories .main-action:hover {
     font-size: 45px;
   }
 }
@@ -102,7 +102,7 @@
   .backdrop-container:hover .main-action,
   .backdrop-container:active .main-action,
   .backdrop-container:focus .main-action,
-  .homepage .main-action:hover {
+  .main-categories .main-action:hover {
     font-size: 32px;
   }
 }

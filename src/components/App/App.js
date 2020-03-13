@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Layout } from 'antd';
-import Header from '../Header';
 import Homepage from '../Homepage';
-import UnderConstruction from '../UnderConstruction';
-// import FilterWrapper from '../FilterWrapper';
-import Footer from '../Footer';
 import './App.css';
 
-const { Content } = Layout;
-
 function App() {
-  const [traditionalMode, setTraditionalMode] = useState(true);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
 
@@ -29,17 +23,16 @@ function App() {
   });
 
   return (
-    <Layout className="layout app-container" theme="dark" style={{ minHeight: '100%' }}>
-      <Header traditionalMode={traditionalMode} handleChange={() => setTraditionalMode(!traditionalMode)} />
-      <Content className="main-container">
-        {
-          traditionalMode
-            ? <Homepage width={width} height={height} />
-            : <UnderConstruction description="Filter Mode Coming Soon" />
-        }
-      </Content>
-      <Footer />
-    </Layout>
+    <Router>
+      <Layout theme="dark" style={{ minHeight: '100%' }}>
+        <Switch>
+          <Route exact path="/">
+            <Homepage width={width} height={height} />
+          </Route>
+          <Route path="/watchlist">WATCHLIST</Route>
+        </Switch>
+      </Layout>
+    </Router>
   );
 }
 
