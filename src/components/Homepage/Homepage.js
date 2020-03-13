@@ -14,6 +14,7 @@ const Homepage = (props) => {
   return (
     <>
       <Header
+        switchable
         traditionalMode={traditionalMode}
         handleChange={() => setTraditionalMode(!traditionalMode)}
       />

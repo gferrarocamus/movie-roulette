@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { Icon, Layout, Switch } from 'antd';
 import Logo from '../Logo/Logo';
 
@@ -16,25 +17,60 @@ const iconStyle = {
   padding: '2px',
 };
 
-const HeaderWrapper = ({ traditionalMode, handleChange }) => (
+const HeaderWrapper = ({ handleChange, switchable, traditionalMode }) => (
   <Header className="header" style={headerStyle}>
-    <a href="https://movieroulette.herokuapp.com/" title="MovieRoulette | Discover What To Watch">
+    <Link to="/" title="MovieRoulette | Discover What To Watch">
       <Logo />
-    </a>
-    <span>
-      <Switch
-        checkedChildren={<Icon type="filter" style={iconStyle} />}
-        unCheckedChildren={<Icon type="thunderbolt" style={iconStyle} />}
-        onChange={handleChange}
-        checked={!traditionalMode}
-      />
+    </Link>
+    <span
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+      }}
+    >
+      {switchable ? (
+        <>
+          <Switch
+            checkedChildren={<Icon type="filter" style={iconStyle} />}
+            unCheckedChildren={<Icon type="thunderbolt" style={iconStyle} />}
+            onChange={handleChange}
+            checked={!traditionalMode}
+          />
+          <Link to="/watchlist" title="Watchlist">
+            <Icon
+              type="menu"
+              style={{
+                fontSize: '20px',
+                marginLeft: '1em',
+              }}
+            />
+          </Link>
+        </>
+      ) : (
+        <Link to="/">
+          <Icon
+            type="backward"
+            theme="filled"
+            style={{
+              fontSize: '26px',
+            }}
+          />
+        </Link>
+      )}
     </span>
   </Header>
 );
 
 HeaderWrapper.propTypes = {
-  traditionalMode: PropTypes.bool.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  handleChange: PropTypes.func,
+  switchable: PropTypes.bool,
+  traditionalMode: PropTypes.bool,
+};
+
+HeaderWrapper.defaultProps = {
+  handleChange: () => {},
+  switchable: false,
+  traditionalMode: true,
 };
 
 export default HeaderWrapper;
