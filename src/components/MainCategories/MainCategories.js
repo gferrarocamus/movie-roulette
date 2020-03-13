@@ -12,7 +12,7 @@ const MainCategories = (props) => {
   const [trending, setTrending] = useState([]);
   const [popular, setPopular] = useState([]);
   const [random, setRandom] = useState([]);
-  const [buttonsVisible, setButtonsVisible] = useState(true);
+  const [buttonsVisible, setButtonsVisible] = useState(false);
 
   const fetchedMovies = [
     initial,

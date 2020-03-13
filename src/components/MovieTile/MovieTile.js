@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Icon } from 'antd';
 import MovieModal from '../MovieModal';
@@ -17,6 +17,12 @@ const MovieTile = ({
   const [modalVisible, setModalVisible] = useState(false);
   const containerHeight = width > 992 ? (height - 77) / 2 : (height - 77) / 4;
 
+  useEffect(() => {
+    setTimeout(() => {
+      setButtonsVisible(true);
+    }, 5);
+  }, [setButtonsVisible]);
+
   const handleClick = () => {
     setButtonsVisible(false);
     setModalVisible(true);
@@ -29,10 +35,7 @@ const MovieTile = ({
 
   return (
     <Fragment key={movie.id}>
-      <div
-        className="backdrop-container"
-        style={{ height: containerHeight }}
-      >
+      <div className="backdrop-container" style={{ height: containerHeight }}>
         <img
           key={movie.backdrop_path}
           className="backdrop"
@@ -68,9 +71,7 @@ const MovieTile = ({
 };
 
 MovieTile.propTypes = {
-  buttonData: PropTypes.arrayOf(
-    PropTypes.string,
-  ).isRequired,
+  buttonData: PropTypes.arrayOf(PropTypes.string).isRequired,
   buttonKey: PropTypes.string.isRequired,
   buttonsVisible: PropTypes.bool.isRequired,
   height: PropTypes.number.isRequired,
@@ -79,9 +80,7 @@ MovieTile.propTypes = {
     title: PropTypes.string,
     id: PropTypes.number,
   }).isRequired,
-  movies: PropTypes.arrayOf(
-    PropTypes.shape({}),
-  ),
+  movies: PropTypes.arrayOf(PropTypes.shape({})),
   setButtonsVisible: PropTypes.func.isRequired,
   width: PropTypes.number.isRequired,
 };
