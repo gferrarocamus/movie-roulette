@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Layout, Spin } from 'antd';
+import { Layout } from 'antd';
 import Homepage from '../Homepage';
 import ChildPage from '../ChildPage';
 import Watchlist from '../Watchlist';
@@ -22,23 +22,19 @@ function App() {
     return function cleanup() {
       window.removeEventListener('resize', updateWindowDimensions.bind(this));
     };
-  });
+  }, []);
 
   return (
     <Router>
       <Layout theme="dark" style={{ minHeight: '100%' }}>
-        {width === 0 && height === 0 ? (
-          <Spin size="large" style={{ margin: 'auto' }} />
-        ) : (
-          <Switch>
-            <Route exact path="/">
-              <Homepage width={width} height={height} />
-            </Route>
-            <Route path="/watchlist">
-              <ChildPage component={Watchlist} />
-            </Route>
-          </Switch>
-        )}
+        <Switch>
+          <Route exact path="/">
+            <Homepage width={width} height={height} />
+          </Route>
+          <Route path="/watchlist">
+            <ChildPage component={Watchlist} />
+          </Route>
+        </Switch>
       </Layout>
     </Router>
   );

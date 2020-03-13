@@ -38,16 +38,17 @@ const HeaderWrapper = ({ handleChange, switchable, traditionalMode }) => (
           />
           <Link to="/watchlist" title="Watchlist">
             <Icon
-              type="menu"
+              type="forward"
+              theme="filled"
               style={{
-                fontSize: '20px',
-                marginLeft: '1em',
+                fontSize: '26px',
+                marginLeft: '16px',
               }}
             />
           </Link>
         </>
       ) : (
-        <Link to="/">
+        <Link to="/" title="Home">
           <Icon
             type="backward"
             theme="filled"
