@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Layout } from 'antd';
 import Header from '../Header';
 import MainCategories from '../MainCategories';
-import UnderConstruction from '../UnderConstruction';
+import Empty from '../Empty';
 // import FilterWrapper from '../FilterWrapper';
 import Footer from '../Footer';
 
@@ -22,7 +22,7 @@ const Homepage = (props) => {
         {traditionalMode ? (
           <MainCategories {...props} />
         ) : (
-          <UnderConstruction description="Filter Mode Coming Soon" />
+          <Empty description="Filter Mode Coming Soon" />
         )}
       </Content>
       <Footer />

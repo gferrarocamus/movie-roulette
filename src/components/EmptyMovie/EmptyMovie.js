@@ -24,7 +24,7 @@ const EmptyMovie = ({ description, hideModal }) => {
     <Empty
       image={popcorn}
       imageStyle={emptyStyle}
-      className="under-construction"
+      className="empty"
       description={description}
     >
       <p>It seems like there's nothing to show you at this time.</p>

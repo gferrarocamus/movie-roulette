@@ -1,9 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import Empty from '../Empty';
+// import PropTypes from 'prop-types';
 
 const Watchlist = () => (
   <div>
-    WATCHLIST
+    <Empty
+      description="No Movies Discovered (Yet)"
+      content={() => null}
+    />
   </div>
 );
 
