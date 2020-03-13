@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Layout } from 'antd';
 import Homepage from '../Homepage';
+import ChildPage from '../ChildPage';
+import Watchlist from '../Watchlist';
 import './App.css';
 
 function App() {
@@ -29,7 +31,9 @@ function App() {
           <Route exact path="/">
             <Homepage width={width} height={height} />
           </Route>
-          <Route path="/watchlist">WATCHLIST</Route>
+          <Route path="/watchlist">
+            <ChildPage component={Watchlist} />
+          </Route>
         </Switch>
       </Layout>
     </Router>
