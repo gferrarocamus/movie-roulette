@@ -85,4 +85,6 @@ export const updateStorage = () => {
 
 export const nonEmpty = (parsed) => !!parsed && JSON.stringify(parsed) !== '[]' && JSON.stringify(parsed) !== '{}';
 
+export const getList = (key) => getFromStorage(key) || [];
+
 export default selectNFromArray;

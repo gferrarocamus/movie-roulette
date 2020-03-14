@@ -2,6 +2,7 @@ import { getResource } from './axios';
 import { routeParams, imageConfig } from './routes';
 import {
   getFromStorage,
+  getList,
   nonEmpty,
   objectToArray,
   selectNFromArray,
@@ -120,7 +121,7 @@ const getInitialSelection = (response, n) => {
 };
 
 const getMovie = (key, prev) => {
-  const bingos = getFromStorage('bingos') || [];
+  const bingos = getList('bingos');
   const arr = objectToArray(prev);
   const filtered = arr.filter((m) => !bingos.includes(m.id));
   let promiseChain = Promise.resolve(filtered);
@@ -153,7 +154,7 @@ const getMovie = (key, prev) => {
 };
 
 const addToBingos = (movie) => {
-  const bingos = getFromStorage('bingos') || [];
+  const bingos = getList('bingos');
 
   if (movie && movie.id && !bingos.includes(movie.id)) {
     const newBingos = [movie.id, ...bingos];
@@ -161,7 +162,20 @@ const addToBingos = (movie) => {
   }
 };
 
-const imageURL = (path, size = 'w185') => `${imageConfig.secure_base_url}/${size}/${path}`;
+const addToList = (movie, key) => {
+  const list = getList(key);
+
+  if (movie && movie.id) {
+    const newList = [movie, ...list].filter((item, i, arr) => (
+      i === arr.findIndex((obj) => (
+        item.id === obj.id
+      ))
+    ));
+    setToStorage(key, newList);
+  }
+};
+
+const imageURL = (path, size = 'w185') => `${imageConfig.secure_base_url}${size}${path}`;
 
 const imageSrcSet = (path, set) => (
   set.map((width) => `${imageURL(path, `w${width}`)} ${width}w`).join(', ')
@@ -171,6 +185,7 @@ export default getInitial;
 
 export {
   addToBingos,
+  addToList,
   getByDiscover,
   getInitial,
   getInitialSelection,

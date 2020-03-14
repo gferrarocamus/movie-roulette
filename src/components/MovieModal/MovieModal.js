@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Icon, Modal, Spin, Tooltip } from 'antd';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { addToBingos } from '../../services/api';
+import { addToBingos, addToList } from '../../services/api';
 import MovieModalContent from '../MovieModalContent';
 import './MovieModal.css';
 
@@ -17,6 +18,8 @@ const MovieModal = ({
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(false);
   const [rejected, setRejected] = useState(true);
+  const [pending, setPending] = useState(false);
+  const history = useHistory();
 
   const buttonTooltips = {
     popular: (
@@ -33,7 +36,8 @@ const MovieModal = ({
     ),
   };
 
-  const handleOk = () => {
+  const handleNo = () => {
+    setPending(false);
     setRejected(true);
     setLoading(true);
     setTimeout(() => {
@@ -44,12 +48,21 @@ const MovieModal = ({
     }, 1000);
   };
 
-  const handleCancel = () => {
-    const delay = rejected ? 500 : 0;
+  const handleYes = () => {
+    const delay = (rejected || pending) ? 500 : 0;
+    setPending(false);
     setRejected(false);
+    addToList(movie, 'watchlist');
     setTimeout(() => {
       hideModal();
+      history.push('/watchlist');
     }, delay);
+  };
+
+  const handleCancel = () => {
+    setPending(true);
+    setRejected(false);
+    hideModal();
   };
 
   useEffect(() => {
@@ -65,16 +78,22 @@ const MovieModal = ({
   }, [movie, visible]);
 
   const footer = [
-    <Button shape="round" loading={loading} key="more" onClick={handleOk}>
+    <Button shape="round" loading={loading} key="more" onClick={handleNo}>
       No, show me more
     </Button>,
-    <Button shape="round" type="default" key="sure" onClick={handleCancel}>
+    <Button shape="round" type="default" key="sure" onClick={handleYes}>
       Sure, I'll watch that
     </Button>,
   ];
 
   return (
     <Modal
+      bodyStyle={{ minHeight: '348px' }}
+      cancelButtonProps={{ shape: 'round' }}
+      centered
+      footer={movie ? footer : null}
+      okButtonProps={{ shape: 'round', type: 'default' }}
+      onCancel={handleCancel}
       title={(
         <>
           {title}
@@ -87,15 +106,7 @@ const MovieModal = ({
         </>
       )}
       visible={visible}
-      onOk={handleOk}
-      onCancel={handleCancel}
       width={720}
-      okButtonProps={{ shape: 'round', type: 'default' }}
-      cancelButtonProps={{ shape: 'round' }}
-      centered
-      footer={movie ? footer : null}
-      bodyStyle={{ minHeight: '348px' }}
-      className={rejected ? 'rejected' : 'accepted'}
     >
       {loading
         ? (
@@ -105,7 +116,7 @@ const MovieModal = ({
           />
         ) : (
           <MovieModalContent
-            rejected={rejected}
+            pin={!pending && !rejected}
             movie={movie}
             hideModal={hideModal}
             {...rest}
