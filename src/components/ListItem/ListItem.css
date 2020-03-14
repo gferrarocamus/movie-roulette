@@ -1,0 +1,72 @@
+.list-item-container {
+  position: relative;
+  background-color: var(--tan);
+  font-size: 20px;
+}
+
+.list-item-poster {
+  filter: opacity(1) grayscale(0) blur(0);
+  transition: all 0.3s ease-in-out;
+}
+
+.list-item-container:hover .list-item-poster {
+  filter: opacity(0.3) grayscale(100%) blur(5px);
+}
+
+.list-item-details {
+  padding: 15px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-weight: 900;
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+.list-item-details a {
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.list-item-container:hover .list-item-details a {
+  opacity: 1;
+}
+
+.list-item-details h3,
+.list-item-details h4,
+.list-item-details small {
+  color: var(--header);
+}
+
+.list-item-details a:hover h3,
+.list-item-details a:hover h4,
+.list-item-details a:hover small {
+  color: var(--accent);
+}
+
+.list-item-icon.anticon {
+  position: absolute;
+  /* font-size: 28px; */
+  top: 15px;
+  right: 15px;
+  font-size: 1em;
+  transform: scale(0);
+  transition: all 0.3s ease-in-out;
+  color: var(--header)
+}
+
+.list-item-container:hover .list-item-icon.anticon {  
+  transform: scale(1);
+}
+
+.list-item-container .list-item-icon.anticon:hover {
+  top: 12px;
+  right: 12px;
+  color: var(--accent);
+  cursor: pointer;
+}

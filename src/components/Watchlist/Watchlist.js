@@ -1,9 +1,23 @@
 import React, { useEffect, useState } from 'react';
 // import PropTypes from 'prop-types';
+import { Card } from 'antd';
 import Empty from '../Empty';
+import ListItem from '../ListItem';
 import { getList } from '../../services/lib';
+import './Watchlist.css';
 
-const Watchlist = () => {
+const cardStyle = {
+  backgroundColor: 'inherit',
+  border: 'none',
+};
+
+const gridStyle = {
+  width: 'auto',
+  textAlign: 'center',
+  position: 'relative',
+};
+
+const Watchlist = (props) => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -13,13 +27,18 @@ const Watchlist = () => {
   return movies.length === 0 ? (
     <Empty description="No Movies Discovered (Yet)" content={null} />
   ) : (
-    <div>
-      {movies.map((movie) => (
-        <div key={movie.id}>
-          {console.log(JSON.stringify(movies))}
-          {movie.title}
-        </div>
-      ))}
+    <div className="watchlist">
+      <h2>Your Watchlist</h2>
+      <Card style={cardStyle} className="watchlist-container">
+        {movies.map((movie) => (
+          <Card.Grid
+            key={movie.id}
+            style={gridStyle}
+          >
+            <ListItem movie={movie} {...props} />
+          </Card.Grid>
+        ))}
+      </Card>
     </div>
   );
 };

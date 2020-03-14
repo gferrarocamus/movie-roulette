@@ -32,7 +32,7 @@ function App() {
             <Homepage width={width} height={height} />
           </Route>
           <Route path="/watchlist">
-            <ChildPage component={Watchlist} />
+            <ChildPage component={Watchlist} width={width} height={height} />
           </Route>
         </Switch>
       </Layout>

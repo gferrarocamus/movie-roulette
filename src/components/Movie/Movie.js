@@ -60,10 +60,9 @@ const Movie = ({ movie, pin, width }) => {
         <a
           target="_blank"
           rel="noopener noreferrer"
-          title="Read More"
           href={`https://www.themoviedb.org/movie/${movie.id}`}
         >
-          {'Read More '}
+          {'Read more '}
           <Icon type="arrow-right" />
         </a>
       </Col>

@@ -40,6 +40,7 @@ const MovieModal = ({
     setPending(false);
     setRejected(true);
     setLoading(true);
+    addToList(movie, 'rejects');
     setTimeout(() => {
       getMovie(buttonKey, movies).then((response) => {
         setMovie(response);
@@ -72,10 +73,10 @@ const MovieModal = ({
   }, [buttonKey, getMovie, movies, rejected, visible]);
 
   useEffect(() => {
-    if (visible && movie && movie.id) {
+    if (visible && !pending && movie && movie.id) {
       addToBingos(movie);
     }
-  }, [movie, visible]);
+  }, [movie, visible, pending]);
 
   const footer = [
     <Button shape="round" loading={loading} key="more" onClick={handleNo}>
