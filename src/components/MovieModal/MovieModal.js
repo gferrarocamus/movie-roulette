@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Icon, Modal, Spin, Tooltip } from 'antd';
-import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
+import { Button, Icon, Modal, Spin, Tooltip } from 'antd';
 import { addToBingos, addToList } from '../../services/api';
 import MovieModalContent from '../MovieModalContent';
 import './MovieModal.css';
