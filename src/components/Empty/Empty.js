@@ -4,34 +4,39 @@ import { Empty, Icon } from 'antd';
 import popcorn from '../../images/popcorn.svg';
 import './Empty.css';
 
-const CTA = () => (
-  <>
-    <div>In the meantime...</div>
-    <a href="mailto:giuliana.ferraro.dev@gmail.com" title="Send feedback by email">Feedback? <Icon type="mail" theme="filled" /></a>
-  </>
-);
-
-const EmptyWrapper = ({ description, content: Content }) => (
+const EmptyWrapper = ({ description, imageStyle, content }) => (
   <Empty
     image={popcorn}
-    imageStyle={{
-      height: 100,
-    }}
+    imageStyle={imageStyle}
     className="empty"
     description={description}
   >
-    <Content />
+    {content}
   </Empty>
 );
 
 EmptyWrapper.propTypes = {
-  content: PropTypes.elementType,
+  content: PropTypes.oneOfType([PropTypes.node, PropTypes.number]),
   description: PropTypes.string,
+  imageStyle: PropTypes.shape({}),
 };
 
 EmptyWrapper.defaultProps = {
-  content: CTA,
+  content: (
+    <>
+      <div>In the meantime...</div>
+      <a
+        href="mailto:giuliana.ferraro.dev@gmail.com"
+        title="Send feedback by email"
+      >
+        Feedback? <Icon type="mail" theme="filled" />
+      </a>
+    </>
+  ),
   description: 'No Data',
+  imageStyle: {
+    height: 100,
+  },
 };
 
 export default EmptyWrapper;

@@ -6,7 +6,7 @@ const Watchlist = () => (
   <div>
     <Empty
       description="No Movies Discovered (Yet)"
-      content={() => null}
+      content={null}
     />
   </div>
 );
