@@ -30,22 +30,22 @@ const HeaderWrapper = ({ handleChange, switchable, traditionalMode }) => (
     >
       {switchable ? (
         <>
-          <Switch
-            checkedChildren={<Icon type="filter" style={iconStyle} />}
-            unCheckedChildren={<Icon type="thunderbolt" style={iconStyle} />}
-            onChange={handleChange}
-            checked={!traditionalMode}
-          />
           <Link to="/watchlist" title="Watchlist">
             <Icon
               type="forward"
               theme="filled"
               style={{
                 fontSize: '26px',
-                marginLeft: '16px',
+                marginRight: '16px',
               }}
             />
           </Link>
+          <Switch
+            checkedChildren={<Icon type="filter" style={iconStyle} />}
+            unCheckedChildren={<Icon type="thunderbolt" style={iconStyle} />}
+            onChange={handleChange}
+            checked={!traditionalMode}
+          />
         </>
       ) : (
         <Link to="/" title="Home">

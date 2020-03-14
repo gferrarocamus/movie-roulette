@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { Layout } from 'antd';
+import { CSSTransition } from 'react-transition-group';
 import Header from '../Header';
 import MainCategories from '../MainCategories';
 import Empty from '../Empty';
 // import FilterWrapper from '../FilterWrapper';
 import Footer from '../Footer';
+import './Homepage.css';
 
 const { Content } = Layout;
 
 const Homepage = (props) => {
   const [traditionalMode, setTraditionalMode] = useState(true);
+  const [filterMode, setFilterMode] = useState(false);
 
   return (
     <>
@@ -19,11 +22,17 @@ const Homepage = (props) => {
         handleChange={() => setTraditionalMode(!traditionalMode)}
       />
       <Content className="main-container">
-        {traditionalMode ? (
+        {filterMode && <Empty description="Filter Mode Coming Soon" />}
+        <CSSTransition
+          appear
+          classNames="transition"
+          in={traditionalMode}
+          timeout={300}
+          onEnter={() => setFilterMode(false)}
+          onExited={() => setFilterMode(true)}
+        >
           <MainCategories {...props} />
-        ) : (
-          <Empty description="Filter Mode Coming Soon" />
-        )}
+        </CSSTransition>
       </Content>
       <Footer />
     </>

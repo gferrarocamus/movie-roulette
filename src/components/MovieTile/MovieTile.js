@@ -18,9 +18,7 @@ const MovieTile = ({
   const containerHeight = width > 992 ? (height - 77) / 2 : (height - 77) / 4;
 
   useEffect(() => {
-    setTimeout(() => {
-      setButtonsVisible(true);
-    }, 5);
+    setButtonsVisible(true);
   }, [setButtonsVisible]);
 
   const handleClick = () => {
