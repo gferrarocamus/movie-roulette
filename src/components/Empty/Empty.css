@@ -2,7 +2,7 @@
   font-weight: 700;
   font-size: 28px;
   margin-top: 1em;
-  font-family: 'Bebas Neue', cursive;
+  font-family: 'Bebas Neue', sans-serif;
   transition: all 0.3s ease-in-out;
   color: var(--accent);
 }
