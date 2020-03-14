@@ -1,3 +1,8 @@
+.watchlist-container .ant-card-body::before,
+.watchlist-container .ant-card-body::after {
+  display: none;
+}
+
 .watchlist {
   align-self: flex-start;
   width: 100%;

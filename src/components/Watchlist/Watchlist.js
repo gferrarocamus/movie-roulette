@@ -17,6 +17,11 @@ const gridStyle = {
   position: 'relative',
 };
 
+const gridBodyStyle = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+};
+
 const Watchlist = (props) => {
   const [movies, setMovies] = useState([]);
 
@@ -29,7 +34,7 @@ const Watchlist = (props) => {
   ) : (
     <div className="watchlist">
       <h2>Your Watchlist</h2>
-      <Card style={cardStyle} className="watchlist-container">
+      <Card bodyStyle={gridBodyStyle} style={cardStyle} className="watchlist-container">
         {movies.map((movie) => (
           <Card.Grid
             key={movie.id}
