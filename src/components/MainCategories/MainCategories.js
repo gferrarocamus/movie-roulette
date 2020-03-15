@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import CategoryTile from '../CategoryTile';
-import { getFromStorage, nonEmpty, updateStorage } from '../../services/lib';
+import { getFromStorage, nonEmpty, updateStorage, updateBingos } from '../../services/lib';
 import { getByDiscover, getInitial, getInitialSelection } from '../../services/api';
-import { categoryButtons, categoryKeys, initialMovies } from '../../data';
+import { categoryButtons, categoryKeys, initialMovies, listKeys } from '../../data';
 import './MainCategories.css';
 
 const MainCategories = (props) => {
@@ -22,7 +22,8 @@ const MainCategories = (props) => {
   ];
 
   useEffect(() => {
-    updateStorage();
+    updateStorage(categoryKeys);
+    updateBingos(listKeys);
   }, []);
 
   useEffect(() => {

@@ -16,7 +16,7 @@ const emptyStyle = {
 
 const EmptyMovie = ({ description, hideModal }) => {
   const handleReset = () => {
-    clearStorageByKeys(['bingos']);
+    clearStorageByKeys(['bingos', 'watchlist', 'rejects']);
     window.location.reload();
   };
 

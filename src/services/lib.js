@@ -64,13 +64,22 @@ export const getFromStorage = (key) => {
   }
 };
 
+export const getListFromStorage = (key) => getFromStorage(key) || [];
+
 export const setToStorage = (key, result) => localStorage.setItem(localStorageKey(key), JSON.stringify(result));
 
 export const clearStorageByKeys = (keys) => {
   keys.forEach((key) => localStorage.removeItem(localStorageKey(key)));
 };
 
-export const updateStorage = () => {
+export const updateBingos = (keys) => {
+  const movies = keys.map((key) => getListFromStorage(key)).flat();
+  const ids = movies.map((movie) => movie.id);
+
+  setToStorage('bingos', ids);
+};
+
+export const updateStorage = (categoryKeys) => {
   const dateString = getFromStorage('lastUpdated');
   const today = new Date().getTime();
   const date = dateString ? Date.parse(dateString) : null;
@@ -78,13 +87,12 @@ export const updateStorage = () => {
   if (date && today - date <= 6.048e+8) return false;
 
   // clear storage if there's no date recorded or date is older than 7 days ago
-  localStorage.clear();
+  const keys = categoryKeys.reduce((acc, value) => [value, `${value}__lastPage`, ...acc], []);
+  clearStorageByKeys(keys);
   setToStorage('lastUpdated', todayISO());
   return true;
 };
 
 export const nonEmpty = (parsed) => !!parsed && JSON.stringify(parsed) !== '[]' && JSON.stringify(parsed) !== '{}';
-
-export const getList = (key) => getFromStorage(key) || [];
 
 export default selectNFromArray;

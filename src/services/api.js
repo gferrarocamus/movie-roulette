@@ -2,7 +2,7 @@ import { getResource } from './axios';
 import { routeParams, imageConfig } from './routes';
 import {
   getFromStorage,
-  getList,
+  getListFromStorage,
   nonEmpty,
   objectToArray,
   selectNFromArray,
@@ -74,7 +74,7 @@ const getInitial = () => {
     .then((results) => {
       console.log('+++++++', results);
       if (nonEmpty(results)) {
-        setToStorage('initial__last_page', totalPages);
+        setToStorage('initial__lastPage', totalPages);
         setToStorage('initial', results);
         return results;
       }
@@ -104,7 +104,7 @@ const getByDiscover = (key, query = null) => {
     .then((results) => {
       console.log('+++++++', results);
       if (nonEmpty(results)) {
-        setToStorage(`${key}__last_page`, 10);
+        setToStorage(`${key}__lastPage`, 10);
         setToStorage(key, results);
         return results;
       }
@@ -121,21 +121,21 @@ const getInitialSelection = (response, n) => {
 };
 
 const getMovie = (key, prev) => {
-  const bingos = getList('bingos');
+  const bingos = getListFromStorage('bingos');
   const arr = objectToArray(prev);
   const filtered = arr.filter((m) => !bingos.includes(m.id));
   let promiseChain = Promise.resolve(filtered);
   let movie = {};
 
   if (filtered.length < 1) {
-    const firstPage = +getFromStorage(`${key}__last_page`) + 1;
+    const firstPage = +getFromStorage(`${key}__lastPage`) + 1;
     const lastPage = firstPage + 10;
 
     promiseChain = promiseChain.then(() => (
       fetchMore(key, firstPage, lastPage)
         .then((response) => {
           if (nonEmpty(response)) {
-            setToStorage(`${key}__last_page`, lastPage);
+            setToStorage(`${key}__lastPage`, lastPage);
             setToStorage(key, response);
             return response;
           }
@@ -154,7 +154,7 @@ const getMovie = (key, prev) => {
 };
 
 const addToBingos = (movie) => {
-  const bingos = getList('bingos');
+  const bingos = getListFromStorage('bingos');
 
   if (movie && movie.id && !bingos.includes(movie.id)) {
     const newBingos = [movie.id, ...bingos];
@@ -162,8 +162,17 @@ const addToBingos = (movie) => {
   }
 };
 
+const removeFromBingos = (id) => {
+  const bingos = getListFromStorage('bingos');
+
+  if (id) {
+    const newBingos = bingos.filter((bingoId) => bingoId !== id);
+    setToStorage('bingos', newBingos);
+  }
+};
+
 const addToList = (movie, key) => {
-  const list = getList(key);
+  const list = getListFromStorage(key);
 
   if (movie && movie.id) {
     const newList = [movie, ...list].filter((item, i, arr) => (
@@ -192,4 +201,5 @@ export {
   getMovie,
   imageSrcSet,
   imageURL,
+  removeFromBingos,
 };

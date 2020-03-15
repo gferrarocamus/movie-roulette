@@ -73,10 +73,10 @@ const MovieModal = ({
   }, [buttonKey, getMovie, movies, rejected, visible]);
 
   useEffect(() => {
-    if (visible && !pending && movie && movie.id) {
+    if (visible && movie && movie.id) {
       addToBingos(movie);
     }
-  }, [movie, visible, pending]);
+  }, [movie, visible]);
 
   const footer = [
     <Button shape="round" loading={loading} key="more" onClick={handleNo}>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Card, Icon } from 'antd';
 import Empty from '../Empty';
 import ListItem from '../ListItem';
-import { getList, setToStorage } from '../../services/lib';
+import { getListFromStorage, setToStorage } from '../../services/lib';
 import './List.css';
 
 const cardStyle = {
@@ -28,7 +28,7 @@ const List = ({ details, listKey, ...rest }) => {
   const [updated, setUpdated] = useState(false);
 
   useEffect(() => {
-    setList(getList(listKey));
+    setList(getListFromStorage(listKey));
   }, [listKey]);
 
   useEffect(() => {

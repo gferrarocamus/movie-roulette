@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from 'antd';
-import { imageSrcSet, imageURL } from '../../services/api';
+import { imageSrcSet, imageURL, removeFromBingos } from '../../services/api';
 import { yearFromDate } from '../../services/lib';
 import pattern from '../../images/pattern.png';
 import './ListItem.css';
@@ -11,6 +11,7 @@ const ListItem = ({ list, movie, setList, setUpdated, width }) => {
   const [srcSet, setSrcSet] = useState('');
 
   const handleClick = () => {
+    removeFromBingos(movie.id);
     setList(list.filter((item) => item.id !== movie.id));
     setUpdated(true);
   };
@@ -35,7 +36,7 @@ const ListItem = ({ list, movie, setList, setUpdated, width }) => {
         className="poster list-item-poster"
       />
       <div className="list-item-details">
-        <Icon className="list-item-icon" type="close" onClick={handleClick}/>
+        <Icon className="list-item-icon" type="close" onClick={handleClick} />
         <a
           target="_blank"
           rel="noopener noreferrer"
