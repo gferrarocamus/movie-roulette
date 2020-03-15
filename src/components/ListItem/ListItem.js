@@ -2,18 +2,19 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from 'antd';
 import { imageSrcSet, imageURL, removeFromBingos } from '../../services/api';
-import { yearFromDate } from '../../services/lib';
+import { setToStorage, yearFromDate } from '../../services/lib';
 import pattern from '../../images/pattern.png';
 import './ListItem.css';
 
-const ListItem = ({ list, movie, setList, setUpdated, width }) => {
+const ListItem = ({ list, listKey, movie, setList, width }) => {
   const [image, setImage] = useState(pattern);
   const [srcSet, setSrcSet] = useState('');
 
   const handleClick = () => {
     removeFromBingos(movie.id);
-    setList(list.filter((item) => item.id !== movie.id));
-    setUpdated(true);
+    const newList = list.filter((item) => item.id !== movie.id);
+    setToStorage(listKey, newList);
+    setList(newList);
   };
 
   useEffect(() => {
@@ -65,6 +66,7 @@ ListItem.propTypes = {
   list: PropTypes.arrayOf(
     PropTypes.shape({}),
   ).isRequired,
+  listKey: PropTypes.string.isRequired,
   movie: PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -74,7 +76,6 @@ ListItem.propTypes = {
     poster_path: PropTypes.string,
   }).isRequired,
   setList: PropTypes.func.isRequired,
-  setUpdated: PropTypes.func.isRequired,
   width: PropTypes.number.isRequired,
 };
 
