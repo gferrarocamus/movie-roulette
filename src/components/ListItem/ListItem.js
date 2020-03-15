@@ -6,9 +6,14 @@ import { yearFromDate } from '../../services/lib';
 import pattern from '../../images/pattern.png';
 import './ListItem.css';
 
-const ListItem = ({ movie, width }) => {
+const ListItem = ({ list, movie, setList, setUpdated, width }) => {
   const [image, setImage] = useState(pattern);
   const [srcSet, setSrcSet] = useState('');
+
+  const handleClick = () => {
+    setList(list.filter((item) => item.id !== movie.id));
+    setUpdated(true);
+  };
 
   useEffect(() => {
     if (width > 462) {
@@ -30,7 +35,7 @@ const ListItem = ({ movie, width }) => {
         className="poster list-item-poster"
       />
       <div className="list-item-details">
-        <Icon className="list-item-icon" type="close" />
+        <Icon className="list-item-icon" type="close" onClick={handleClick}/>
         <a
           target="_blank"
           rel="noopener noreferrer"
@@ -56,6 +61,9 @@ const ListItem = ({ movie, width }) => {
 };
 
 ListItem.propTypes = {
+  list: PropTypes.arrayOf(
+    PropTypes.shape({}),
+  ).isRequired,
   movie: PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -64,6 +72,8 @@ ListItem.propTypes = {
     backdrop_path: PropTypes.string,
     poster_path: PropTypes.string,
   }).isRequired,
+  setList: PropTypes.func.isRequired,
+  setUpdated: PropTypes.func.isRequired,
   width: PropTypes.number.isRequired,
 };
 

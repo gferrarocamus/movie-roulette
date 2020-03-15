@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Card, Icon } from 'antd';
 import Empty from '../Empty';
 import ListItem from '../ListItem';
-import { getList } from '../../services/lib';
+import { getList, setToStorage } from '../../services/lib';
 import './List.css';
 
 const cardStyle = {
@@ -15,6 +15,7 @@ const gridStyle = {
   width: 'auto',
   textAlign: 'center',
   position: 'relative',
+  // padding: '0',
 };
 
 const gridBodyStyle = {
@@ -24,12 +25,17 @@ const gridBodyStyle = {
 
 const List = ({ details, listKey, ...rest }) => {
   const [list, setList] = useState([]);
-
-  const handleClick = () => {};
+  const [updated, setUpdated] = useState(false);
 
   useEffect(() => {
     setList(getList(listKey));
   }, [listKey]);
+
+  useEffect(() => {
+    if (updated) {
+      setToStorage(listKey, list);
+    }
+  }, [list, listKey, updated]);
 
   return list.length === 0 ? (
     <Empty description="No Movies Discovered (Yet)" content={null} />
@@ -45,7 +51,7 @@ const List = ({ details, listKey, ...rest }) => {
       <Card bodyStyle={gridBodyStyle} style={cardStyle} className="list-card">
         {list.map((movie) => (
           <Card.Grid key={movie.id} style={gridStyle}>
-            <ListItem movie={movie} {...rest} />
+            <ListItem movie={movie} list={list} setList={setList} setUpdated={setUpdated} {...rest} />
           </Card.Grid>
         ))}
       </Card>
