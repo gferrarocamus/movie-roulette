@@ -1,16 +1,16 @@
-.watchlist-container .ant-card-body::before,
-.watchlist-container .ant-card-body::after {
+.list-card .ant-card-body::before,
+.list-card .ant-card-body::after {
   display: none;
 }
 
-.watchlist {
+.list {
   align-self: flex-start;
   width: 100%;
   padding: 12px 50px;
   font-size: 20px;
 }
 
-.watchlist h2 {
+.list h2 {
   margin-top: 1em;
   color: var(--header);
   letter-spacing: 1.5px;
@@ -18,7 +18,7 @@
 }
 
 @media (max-width: 576px) {
-  .watchlist {
+  .list {
     padding: 12px 15px;
   }
 }

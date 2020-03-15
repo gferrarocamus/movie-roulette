@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Card } from 'antd';
 import Empty from '../Empty';
 import ListItem from '../ListItem';
 import { getList } from '../../services/lib';
-import './Watchlist.css';
+import './List.css';
 
 const cardStyle = {
   backgroundColor: 'inherit',
@@ -22,25 +22,29 @@ const gridBodyStyle = {
   gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
 };
 
-const Watchlist = (props) => {
-  const [movies, setMovies] = useState([]);
+const List = ({ key, title, ...rest }) => {
+  const [list, setList] = useState([]);
+
+  const handleClick = () => {
+
+  };
 
   useEffect(() => {
-    setMovies(getList('watchlist'));
-  }, []);
+    setList(getList(key));
+  }, [key]);
 
-  return movies.length === 0 ? (
+  return list.length === 0 ? (
     <Empty description="No Movies Discovered (Yet)" content={null} />
   ) : (
-    <div className="watchlist">
-      <h2>Your Watchlist</h2>
-      <Card bodyStyle={gridBodyStyle} style={cardStyle} className="watchlist-container">
-        {movies.map((movie) => (
+    <div className="list">
+      <h2>{title}</h2>
+      <Card bodyStyle={gridBodyStyle} style={cardStyle} className="list-card">
+        {list.map((movie) => (
           <Card.Grid
             key={movie.id}
             style={gridStyle}
           >
-            <ListItem movie={movie} {...props} />
+            <ListItem movie={movie} {...rest} />
           </Card.Grid>
         ))}
       </Card>
@@ -48,8 +52,11 @@ const Watchlist = (props) => {
   );
 };
 
-Watchlist.propTypes = {};
+List.propTypes = {
+  key: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+};
 
-Watchlist.defaultProps = {};
+List.defaultProps = {};
 
-export default Watchlist;
+export default List;

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import MovieTile from '../MovieTile/MovieTile';
+import CategoryTile from '../CategoryTile';
 import { getFromStorage, nonEmpty, updateStorage } from '../../services/lib';
 import { getByDiscover, getInitial, getInitialSelection } from '../../services/api';
-import { initialMovies, keys, buttons } from '../../data';
+import { categoryButtons, categoryKeys, initialMovies } from '../../data';
 import './MainCategories.css';
 
 const MainCategories = (props) => {
@@ -29,7 +29,7 @@ const MainCategories = (props) => {
     if (nonEmpty(getFromStorage('initial'))) {
       getInitial().then((response) => {
         setInitial(response);
-        setMovies(getInitialSelection(response, buttons.length));
+        setMovies(getInitialSelection(response, categoryButtons.length));
       });
     } else {
       setMovies(initialMovies);
@@ -52,10 +52,10 @@ const MainCategories = (props) => {
   return (
     <div className="main-categories">
       {movies && movies.map((movie, i) => (
-        <MovieTile
-          key={keys[i]}
-          buttonKey={keys[i]}
-          buttonData={buttons[i]}
+        <CategoryTile
+          key={categoryKeys[i]}
+          buttonKey={categoryKeys[i]}
+          buttonData={categoryButtons[i]}
           movie={movie}
           movies={fetchedMovies[i]}
           buttonsVisible={buttonsVisible}

@@ -30,7 +30,7 @@ const HeaderWrapper = ({ handleChange, switchable, traditionalMode }) => (
     >
       {switchable ? (
         <>
-          <Link to="/watchlist" title="Watchlist">
+          <Link to="/lists" title="Lists">
             <Icon
               type="forward"
               theme="filled"

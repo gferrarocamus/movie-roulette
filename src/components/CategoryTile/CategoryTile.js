@@ -4,7 +4,7 @@ import { Button, Icon } from 'antd';
 import MovieModal from '../MovieModal';
 import { imageSrcSet, imageURL, getMovie } from '../../services/api';
 
-const MovieTile = ({
+const CategoryTile = ({
   buttonData,
   buttonKey,
   buttonsVisible,
@@ -68,7 +68,7 @@ const MovieTile = ({
   );
 };
 
-MovieTile.propTypes = {
+CategoryTile.propTypes = {
   buttonData: PropTypes.arrayOf(PropTypes.string).isRequired,
   buttonKey: PropTypes.string.isRequired,
   buttonsVisible: PropTypes.bool.isRequired,
@@ -83,8 +83,8 @@ MovieTile.propTypes = {
   width: PropTypes.number.isRequired,
 };
 
-MovieTile.defaultProps = {
+CategoryTile.defaultProps = {
   movies: [],
 };
 
-export default MovieTile;
+export default CategoryTile;
