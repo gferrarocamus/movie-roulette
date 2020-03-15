@@ -30,7 +30,7 @@ const ListItem = ({ movie, width }) => {
         className="poster list-item-poster"
       />
       <div className="list-item-details">
-        <Icon className="list-item-icon" type="pushpin" theme="filled" />
+        <Icon className="list-item-icon" type="close" />
         <a
           target="_blank"
           rel="noopener noreferrer"

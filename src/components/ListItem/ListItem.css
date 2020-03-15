@@ -16,7 +16,7 @@
 }
 
 .list-item-details {
-  padding: 15px;
+  padding: 45px 15px;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -33,6 +33,9 @@
 .list-item-details a {
   opacity: 0;
   transition: all 0.3s ease-in-out;
+  word-break: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .list-item-container:hover .list-item-details a {
@@ -59,16 +62,21 @@
   font-size: 1em;
   transform: scale(0);
   transition: all 0.3s ease-in-out;
-  color: var(--header)
+  color: var(--header);
 }
 
-.list-item-container:hover .list-item-icon.anticon {  
-  transform: scale(1);
+.list-item-container:hover .list-item-icon.anticon {
+  transform: scale(0.8);
 }
 
 .list-item-container .list-item-icon.anticon:hover {
-  top: 12px;
-  right: 12px;
+  transform: scale(1);
   color: var(--accent);
   cursor: pointer;
+}
+
+@media (max-width: 461.98px) {
+  .list-item-details {
+    padding: 10px 40px;
+  }
 }

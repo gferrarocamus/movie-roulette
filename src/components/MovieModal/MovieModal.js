@@ -56,7 +56,7 @@ const MovieModal = ({
     addToList(movie, 'watchlist');
     setTimeout(() => {
       hideModal();
-      history.push('/watchlist');
+      history.push('/lists');
     }, delay);
   };
 

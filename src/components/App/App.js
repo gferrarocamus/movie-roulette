@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Layout } from 'antd';
 import Homepage from '../Homepage';
 import ChildPage from '../ChildPage';
-import Watchlist from '../Watchlist';
+import Lists from '../Lists';
 import './App.css';
 
 function App() {
@@ -31,8 +31,8 @@ function App() {
           <Route exact path="/">
             <Homepage width={width} height={height} />
           </Route>
-          <Route path="/watchlist">
-            <ChildPage component={Watchlist} width={width} height={height} />
+          <Route path="/lists">
+            <ChildPage component={Lists} width={width} height={height} />
           </Route>
         </Switch>
       </Layout>
