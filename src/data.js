@@ -19,7 +19,7 @@ export const listKeys = [
 
 export const listDetails = [
   ['Watchlist', 'pushpin'],
-  ['Rejects', 'stop'],
+  ['Dismissed', 'stop'],
 ];
 
 export const genres = [

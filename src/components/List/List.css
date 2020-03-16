@@ -23,6 +23,40 @@
   align-items: center;
 }
 
+.pagination-container {
+  text-align: right;
+}
+
+.pagination-container .ant-pagination-item:hover,
+.pagination-container .ant-pagination-item:focus {
+  border-color: var(--light-accent);
+}
+
+.pagination-container .ant-pagination-item-active a,
+.pagination-container .ant-pagination-item:hover a,
+.pagination-container .ant-pagination-item:focus a {
+  color: var(--light-accent);
+}
+
+.pagination-container .ant-pagination-item-active,
+.pagination-container .ant-pagination-prev:focus .ant-pagination-item-link,
+.pagination-container .ant-pagination-next:focus .ant-pagination-item-link,
+.pagination-container .ant-pagination-prev:hover .ant-pagination-item-link,
+.pagination-container .ant-pagination-next:hover .ant-pagination-item-link {
+  border-color: var(--light-accent);
+  color: var(--light-accent);
+}
+
+.pagination-container .ant-pagination-disabled a,
+.pagination-container .ant-pagination-disabled:hover a,
+.pagination-container .ant-pagination-disabled:focus a,
+.pagination-container .ant-pagination-disabled .ant-pagination-item-link,
+.pagination-container .ant-pagination-disabled:hover .ant-pagination-item-link,
+.pagination-container .ant-pagination-disabled:focus .ant-pagination-item-link {
+  border-color: #d9d9d9;
+  color: rgba(0, 0, 0, 0.25);
+}
+
 @media (max-width: 576px) {
   .list {
     padding: 12px 15px;

@@ -35,7 +35,7 @@ const Lists = (props) => {
     ? (
       <Empty description="All Lists Empty (for Now)" content={null} />
     ) : (
-      <div style={{ alignSelf: 'flex-start' }}>
+      <div className="lists-container" style={{ maxWidth: '1440px', alignSelf: 'stretch' }}>
         {listKeys.map((key, i) => (
           <List
             details={listDetails[i]}
