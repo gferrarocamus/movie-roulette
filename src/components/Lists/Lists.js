@@ -3,7 +3,7 @@ import { Spin } from 'antd';
 import List from '../List';
 import Empty from '../Empty';
 import { listDetails, listKeys } from '../../data';
-import { getListFromStorage } from '../../services/lib';
+import { getListFromStorage, updateBingos } from '../../services/lib';
 
 const Lists = (props) => {
   const [watchlist, setWatchlist] = useState([]);

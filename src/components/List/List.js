@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Card, Icon, Pagination } from 'antd';
+import { Button, Card, Icon, Pagination } from 'antd';
+import { setToStorage, updateBingos } from '../../services/lib';
 import ListItem from '../ListItem';
 import './List.css';
+import { listKeys } from '../../data';
 
 const cardStyle = {
   backgroundColor: 'inherit',
@@ -27,6 +29,12 @@ const List = ({ details, list, listKey, setList, width, ...rest }) => {
   const [paginatedList, setPaginatedList] = useState(list);
 
   const onChange = (page) => setCurrentPage(page);
+
+  const clear = () => {
+    setToStorage(listKey, []);
+    updateBingos(listKeys);
+    setList([]);
+  };
 
   useEffect(() => {
     if (width > 1098) {
@@ -53,6 +61,7 @@ const List = ({ details, list, listKey, setList, width, ...rest }) => {
             style={{ fontSize: '0.8em', lineHeight: '1em', marginLeft: '5px' }}
             type={details[1]}
           />
+          <Button type="link" onClick={clear}>Clear</Button>
         </h2>
         <Card bodyStyle={gridBodyStyle} style={cardStyle} className="list-card">
           {paginatedList.map((movie) => (

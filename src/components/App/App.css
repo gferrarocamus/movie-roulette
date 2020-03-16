@@ -137,6 +137,16 @@ button.ant-btn.yellow:focus {
   border-color: var(--light-accent);
 }
 
+button.ant-btn-link {
+  color: var(--light-accent);
+  border-color: transparent;
+}
+
+button.ant-btn-link:hover {
+  color: var(--accent);
+  border-color: transparent;
+}
+
 .ant-input:hover,
 .ant-select-selection:hover {
   border-color: var(--light-accent);
