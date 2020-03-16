@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Card, Icon, Pagination } from 'antd';
+import { Button, Card, Icon, Pagination, Popconfirm } from 'antd';
 import { setToStorage, updateBingos } from '../../services/lib';
 import ListItem from '../ListItem';
 import './List.css';
@@ -61,7 +61,17 @@ const List = ({ details, list, listKey, setList, width, ...rest }) => {
             style={{ fontSize: '0.8em', lineHeight: '1em', marginLeft: '5px' }}
             type={details[1]}
           />
-          <Button type="link" onClick={clear}>Clear</Button>
+          <Popconfirm
+            cancelText="No"
+            okText="Yes"
+            okType="default"
+            icon={<Icon type="delete" style={{ color: 'inherit' }} />}
+            onConfirm={clear}
+            placement="right"
+            title="Are you sure you want to remove all movies from this list?"
+          >
+            <Button type="link">Clear</Button>
+          </Popconfirm>
         </h2>
         <Card bodyStyle={gridBodyStyle} style={cardStyle} className="list-card">
           {paginatedList.map((movie) => (
