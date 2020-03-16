@@ -1,16 +1,25 @@
-export const keys = [
+export const categoryKeys = [
   'initial',
   'trending',
   'popular',
   'random',
-  'filter',
 ];
 
-export const buttons = [
+export const categoryButtons = [
   ["Editors' Picks", 'gift'],
   ['Trending', 'fire'],
   ['Popular', 'star'],
   ['Random', 'experiment'],
+];
+
+export const listKeys = [
+  'watchlist',
+  'rejects',
+];
+
+export const listDetails = [
+  ['Watchlist', 'pushpin'],
+  ['Dismissed', 'stop'],
 ];
 
 export const genres = [

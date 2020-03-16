@@ -1,0 +1,69 @@
+.list-card .ant-card-body::before,
+.list-card .ant-card-body::after {
+  display: none;
+}
+
+.list {
+  align-self: flex-start;
+  width: 100%;
+  padding: 12px 50px;
+  font-size: 20px;
+}
+
+.list:last-child {
+  margin-bottom: 1.5em;
+}
+
+.list h2 {
+  margin-top: 1em;
+  color: var(--header);
+  letter-spacing: 1.5px;
+  font-family: 'Bebas Neue', sans-serif;
+  display: inline-flex;
+  align-items: center;
+}
+
+.pagination-container {
+  text-align: right;
+}
+
+.pagination-container .ant-pagination-item:hover,
+.pagination-container .ant-pagination-item:focus {
+  border-color: var(--light-accent);
+}
+
+.pagination-container .ant-pagination-item-active a,
+.pagination-container .ant-pagination-item:hover a,
+.pagination-container .ant-pagination-item:focus a {
+  color: var(--light-accent);
+}
+
+.pagination-container .ant-pagination-item-active,
+.pagination-container .ant-pagination-prev:focus .ant-pagination-item-link,
+.pagination-container .ant-pagination-next:focus .ant-pagination-item-link,
+.pagination-container .ant-pagination-prev:hover .ant-pagination-item-link,
+.pagination-container .ant-pagination-next:hover .ant-pagination-item-link {
+  border-color: var(--light-accent);
+  color: var(--light-accent);
+}
+
+.pagination-container .ant-pagination-disabled a,
+.pagination-container .ant-pagination-disabled:hover a,
+.pagination-container .ant-pagination-disabled:focus a,
+.pagination-container .ant-pagination-disabled .ant-pagination-item-link,
+.pagination-container .ant-pagination-disabled:hover .ant-pagination-item-link,
+.pagination-container .ant-pagination-disabled:focus .ant-pagination-item-link {
+  border-color: #d9d9d9;
+  color: rgba(0, 0, 0, 0.25);
+}
+
+.ant-popover-buttons button.ant-btn {
+  padding: 0 16px;
+  border-radius: 32px;
+}
+
+@media (max-width: 576px) {
+  .list {
+    padding: 12px 15px;
+  }
+}

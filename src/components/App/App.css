@@ -10,7 +10,10 @@
 @import '~antd/es/layout/style/index.css';
 @import '~antd/es/message/style/index.css';
 @import '~antd/es/modal/style/index.css';
+@import '~antd/es/pagination/style/index.css';
+@import '~antd/es/popover/style/index.css';
 @import '~antd/es/select/style/index.css';
+@import '~antd/es/style/index.css';
 @import '~antd/es/spin/style/index.css';
 @import '~antd/es/switch/style/index.css';
 @import '~antd/es/tag/style/index.css';
@@ -134,6 +137,18 @@ button.ant-btn.yellow:active,
 button.ant-btn.yellow:focus {
   color: var(--light-accent);
   border-color: var(--light-accent);
+}
+
+button.ant-btn-link {
+  color: var(--light-accent);
+  border-color: transparent;
+}
+
+button.ant-btn-link:hover,
+button.ant-btn-link:focus,
+button.ant-btn-link:active {
+  color: var(--accent);
+  border-color: transparent;
 }
 
 .ant-input:hover,

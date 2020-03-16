@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Col, Icon, Row, Tooltip } from 'antd';
 import PropTypes from 'prop-types';
+import { Col, Icon, Row, Tooltip } from 'antd';
 import GenreTag from '../GenreTag';
 import { imageSrcSet, imageURL } from '../../services/api';
 import { yearFromDate } from '../../services/lib';
@@ -60,10 +60,9 @@ const Movie = ({ movie, pin, width }) => {
         <a
           target="_blank"
           rel="noopener noreferrer"
-          title="Read More"
           href={`https://www.themoviedb.org/movie/${movie.id}`}
         >
-          {'Read More '}
+          {'Read more '}
           <Icon type="arrow-right" />
         </a>
       </Col>

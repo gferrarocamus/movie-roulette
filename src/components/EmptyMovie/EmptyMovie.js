@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Empty } from 'antd';
+import { Button } from 'antd';
+import Empty from '../Empty';
 import { clearStorageByKeys } from '../../services/lib';
-import popcorn from '../../images/popcorn.svg';
 
 const buttonStyle = {
   display: 'block',
@@ -16,17 +16,12 @@ const emptyStyle = {
 
 const EmptyMovie = ({ description, hideModal }) => {
   const handleReset = () => {
-    clearStorageByKeys(['bingos']);
+    clearStorageByKeys(['bingos', 'watchlist', 'rejects']);
     window.location.reload();
   };
 
-  return (
-    <Empty
-      image={popcorn}
-      imageStyle={emptyStyle}
-      className="under-construction"
-      description={description}
-    >
+  const content = (
+    <>
       <p>It seems like there's nothing to show you at this time.</p>
       <Button
         shape="round"
@@ -42,7 +37,15 @@ const EmptyMovie = ({ description, hideModal }) => {
       >
         Try a different category
       </Button>
-    </Empty>
+    </>
+  );
+
+  return (
+    <Empty
+      imageStyle={emptyStyle}
+      description={description}
+      content={content}
+    />
   );
 };
 

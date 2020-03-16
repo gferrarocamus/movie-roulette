@@ -1,10 +1,10 @@
-import React, { useState, Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Icon } from 'antd';
 import MovieModal from '../MovieModal';
 import { imageSrcSet, imageURL, getMovie } from '../../services/api';
 
-const MovieTile = ({
+const CategoryTile = ({
   buttonData,
   buttonKey,
   buttonsVisible,
@@ -15,6 +15,12 @@ const MovieTile = ({
   width,
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const containerHeight = width > 992 ? (height - 77) / 2 : (height - 77) / 4;
+
+  useEffect(() => {
+    setButtonsVisible(true);
+  }, [setButtonsVisible]);
+
   const handleClick = () => {
     setButtonsVisible(false);
     setModalVisible(true);
@@ -27,14 +33,7 @@ const MovieTile = ({
 
   return (
     <Fragment key={movie.id}>
-      <div
-        className="backdrop-container"
-        style={(
-          width > 992
-            ? { height: (height - 77) / 2 }
-            : { height: (height - 77) / 4 }
-        )}
-      >
+      <div className="backdrop-container" style={{ height: containerHeight }}>
         <img
           key={movie.backdrop_path}
           className="backdrop"
@@ -69,10 +68,8 @@ const MovieTile = ({
   );
 };
 
-MovieTile.propTypes = {
-  buttonData: PropTypes.arrayOf(
-    PropTypes.string,
-  ).isRequired,
+CategoryTile.propTypes = {
+  buttonData: PropTypes.arrayOf(PropTypes.string).isRequired,
   buttonKey: PropTypes.string.isRequired,
   buttonsVisible: PropTypes.bool.isRequired,
   height: PropTypes.number.isRequired,
@@ -81,15 +78,13 @@ MovieTile.propTypes = {
     title: PropTypes.string,
     id: PropTypes.number,
   }).isRequired,
-  movies: PropTypes.arrayOf(
-    PropTypes.shape({}),
-  ),
+  movies: PropTypes.arrayOf(PropTypes.shape({})),
   setButtonsVisible: PropTypes.func.isRequired,
   width: PropTypes.number.isRequired,
 };
 
-MovieTile.defaultProps = {
+CategoryTile.defaultProps = {
   movies: [],
 };
 
-export default MovieTile;
+export default CategoryTile;
