@@ -46,7 +46,7 @@ const MovieModal = ({
         setMovie(response);
         setLoading(false);
       });
-    }, 1000);
+    }, 500);
   };
 
   const handleYes = () => {
