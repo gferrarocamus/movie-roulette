@@ -26,7 +26,7 @@ EmptyWrapper.defaultProps = {
     <>
       <div>In the meantime...</div>
       <a
-        href="mailto:giuliana.ferraro.dev@gmail.com"
+        href="mailto:hey@giulianaferraro.com"
         title="Send feedback by email"
       >
         Feedback? <Icon type="mail" theme="filled" />
