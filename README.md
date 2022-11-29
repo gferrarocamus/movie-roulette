@@ -66,7 +66,7 @@ Icons made by [Roundicons](https://www.flaticon.com/authors/roundicons) from [ww
 
 ## Live Version
 
-See it live [here](https://movieroulette.herokuapp.com/).
+See it live [here](https://the-movie-roulette.netlify.app/).
 
 ## License
 
